@@ -56,7 +56,7 @@ def createFolder(path):
     "Create a folder if it doesn't exist"
     if not os.path.exists(path):
         os.mkdir(path)
-
+        print path
 
 def build(root, data):
     "Create folders recursively in the root folder"
