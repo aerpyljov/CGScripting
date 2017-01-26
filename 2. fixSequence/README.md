@@ -6,10 +6,10 @@ The script allows you to achieve the following goals:
 - Delete original files
 
 Requirements:
-- MS Windows.
 - Python 2.7.
 - A folder with files (usually photos).
-- Every file must have a name, consisting of two parts: (1) one or more non-digits and (2) one or more digits. For example: 'photo-12.jpg'
+- Every file must have a name, consisting of two parts: (1) one or more non-digits and (2) one or more digits.
+For example: 'photo-12.jpg'.
 The second part will be converted as a number, so it must be unique for all files with the same first parts: 
 you can't have both files with names like 'photo01' and 'photo1', because after the conversion '01' will be equal to '1'.
 The second part after the conversion must be 1 or more, not 0.
@@ -29,3 +29,5 @@ What is different from the example:
 - The name of the folder with photos can be not only in English, but in Russian too.
 - Original names of the photos can be not only in English, but in Russian too.
 - New names of the photos can be not only in English, but in Russian too.
+- Different operating systems are supported 
+(tested with MS Windows (Russian regional and language settings) and Linux).

@@ -10,7 +10,6 @@ The script allows you to achieve the following goals:
 - Delete original files
 
 Requirements:
-- MS Windows.
 - Python 2.7.
 - A folder with files (usually photos).
 - Every file must have a name, consisting of two parts: (1) one or more non-digits and (2) one or more digits.
@@ -34,6 +33,8 @@ What is different from the example:
 - The name of the folder with photos can be not only in English, but in Russian too.
 - Original names of the photos can be not only in English, but in Russian too.
 - New names of the photos can be not only in English, but in Russian too.
+- Different operating systems are supported 
+(tested with MS Windows (Russian regional and language settings) and Linux).
 """
 
 
@@ -42,7 +43,12 @@ import sys
 import shutil
 
 
-# Define default settings
+# USER SETTINGS
+
+CONSOLE_ENCODING = 'cp866'    # Use 'cp866' for Windows (Russian), 'utf-8' for UNIX
+FILEPATH_ENCODING = 'cp1251'    # Use 'cp1251' for Windows (Russian), 'utf-8' for UNIX
+TXT_ENCODING = 'cp1251'    # Use 'cp1251' for Windows (Russian), 'utf-8' for UNIX
+
 padding = 4
 
 
@@ -76,11 +82,11 @@ def getNewSequenceNames(sequences):
     for s in sequences:
         print s
         message = """Enter a new name for a sequence with name "{0}".\nYou have already used these names: {1}.\n
-                    Type new name: """.format(s.encode('cp866'), usedSequenceNames.encode('cp866'))
-        rawNewSequenceName = raw_input(message).decode('cp866')
+        Type new name: """.format(s.encode(CONSOLE_ENCODING), usedSequenceNames.encode(CONSOLE_ENCODING))
+        rawNewSequenceName = raw_input(message).decode(CONSOLE_ENCODING)
         while unicode(rawNewSequenceName) in newSequenceNames.values():
-            message = """Sorry, the name "{0}" is already used. """.format(rawNewSequenceName.encode('cp866')) + message
-            rawNewSequenceName = raw_input(message).decode('cp866')
+            message = """Sorry, the name "{0}" is already used. """.format(rawNewSequenceName.encode(CONSOLE_ENCODING)) + message
+            rawNewSequenceName = raw_input(message).decode(CONSOLE_ENCODING)
         newSequenceName = rawNewSequenceName
         newSequenceNames[s] = newSequenceName
         usedSequenceNames += newSequenceName + ", " 
@@ -152,7 +158,7 @@ def copySequence(path, sequenceFiles, newSequenceName, offset, padding):
     
 # Find the name of the folder with photos for renaming
 path = sys.argv[1]
-path = path.decode('cp1251')
+path = path.decode(FILEPATH_ENCODING)
 
 
 # Find sequences, ask the user to enter new names for sequences and make a folder for each sequence with new name
@@ -184,7 +190,7 @@ for s in newSequenceNames:
     newSequenceName = newSequenceNames[s]
     copySequence(path, sequenceFiles, newSequenceName, offset, padding)
     statisticsInfo = "- {0} -> {1}: {2} files (missing frames: {3})\n"\
-                        .format(s.encode('cp1251'), newSequenceName.encode('cp1251'), numFilesInSequence, missFrames)
+                        .format(s.encode(TXT_ENCODING), newSequenceName.encode(TXT_ENCODING), numFilesInSequence, missFrames)
     statistics += statisticsInfo
 
 filename = os.path.join(path, "statistics.txt")
@@ -200,7 +206,8 @@ if a == 'y' or a == 'Y':
     for f in files:
         os.remove(os.path.join(path, f))
     result = "DELETED"
-result = "NOT deleted"
+else:
+    result = "NOT deleted"
 resultMessage = "\nOriginal files were {0}.".format(result)
 
 filename = os.path.join(path, "statistics.txt")
