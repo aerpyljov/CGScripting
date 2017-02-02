@@ -54,7 +54,7 @@ padding = 4
 
 # Define functions
 def getListOfFiles(folder):
-    "Return a list of files in a folder (not subfolders)"
+    """Return a list of files in a folder (not subfolders)"""
     tmp = os.listdir(folder)
     files = []
     for t in tmp:
@@ -64,7 +64,7 @@ def getListOfFiles(folder):
 
     
 def getSequences(files):
-    "Return a set of sequences (a list of unique first parts of file names, before frame number)"
+    """Return a set of sequences (a list of unique first parts of file names, before frame number)"""
     sequences = []
     for f in files:
         name, ext = os.path.splitext(f)
@@ -76,7 +76,7 @@ def getSequences(files):
     
 
 def getNewSequenceNames(sequences):
-    "Ask the user to enter new names for each sequence and return them as values of a dictionary (old names are keys)"
+    """Ask the user to enter new names for each sequence and return them as values of a dictionary (old names are keys)"""
     newSequenceNames = dict.fromkeys(sequences)
     usedSequenceNames = ""
     for s in sequences:
@@ -94,7 +94,7 @@ def getNewSequenceNames(sequences):
 
 
 def makeFoldersForSequences(path, newSequenceNames):
-    "Make one folder for each sequence in the folder with files"
+    """Make one folder for each sequence in the folder with files"""
     for s in newSequenceNames:
         newSequenceName = newSequenceNames[s]
         outFolder = os.path.join(path, newSequenceName)
@@ -103,7 +103,7 @@ def makeFoldersForSequences(path, newSequenceNames):
 
 
 def getListOfFilesForSequence(files, sequence):
-    "Return a list of files with the sequence name"
+    """Return a list of files with the sequence name"""
     sequenceFiles = []
     for f in files:
         if f.startswith(sequence):
@@ -112,7 +112,7 @@ def getListOfFilesForSequence(files, sequence):
             
             
 def getFrames(sequenceFiles):
-    "Return a list of frames based on a list of files"
+    """Return a list of frames based on a list of files"""
     frames = []
     for f in sequenceFiles:
         name, ext = os.path.splitext(f)
@@ -125,13 +125,13 @@ def getFrames(sequenceFiles):
 
     
 def getOffset(frames):
-    "Return an offset as a digit based on a list of frames"
+    """Return an offset as a digit based on a list of frames"""
     offset = min(frames) - 1
     return offset
 
     
 def getMissingFrames(frames):
-    "Return missing frames as list of strings based on a list of frames"
+    """Return missing frames as list of strings based on a list of frames"""
     fullrange = range(min(frames), max(frames)+1)
     missFrames = []
     for i in fullrange:
@@ -215,7 +215,7 @@ file = open(filename, 'a')
 file.write(resultMessage)
 file.close()
 
-print 'Complete!'
+print 'Completed.'
 raw_input()
 
 
