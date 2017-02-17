@@ -24,13 +24,6 @@ class Settings(object):
         self.__data = self.__read_file()
         self.__write_file()
 
-    def __read_file(self):
-        if os.path.exists(self.filePath):
-            data = json.load(open(self.filePath, 'r'))
-            return data
-        else:
-            return self.__create_default()
-
     @staticmethod
     def __create_default():
         data = {'CultureCode': 'ru-RU',
@@ -40,16 +33,62 @@ class Settings(object):
                 ]}
         return data
 
+    def __is_valid(self, data):
+        if isinstance(data, dict) and \
+            len(data) == 2 and \
+            data.has_key('CultureCode') and data.has_key('Servers') and \
+            isinstance(data['CultureCode'], str) and \
+            (len(data['CultureCode']) == 2 or len(data['CultureCode']) == 5) and \
+            isinstance(data['Servers'], list):
+                all_servers_correct = False
+                for server in  data['Servers']:
+                    if isinstance(server, dict) and \
+                        len(server) == 1:
+                            for serv_id in  server.keys():
+                                if isinstance(serv_id, int):
+                                    all_servers_correct = True
+                                else:
+                                    return False
+                            for serv_details in server.values():
+                                if isinstance(serv_details, dict) and \
+                                    len(serv_details) == 4 and \
+                                    serv_details.has_key('ServerName') and \
+                                    serv_details.has_key('ServerPort') and \
+                                    serv_details.has_key('UserName') and \
+                                    serv_details.has_key('Password') and \
+                                    isinstance(serv_details['ServerPort'], int) and \
+                                    isinstance(serv_details['ServerName'], str) and \
+                                    isinstance(serv_details['UserName'], str) and \
+                                    isinstance(serv_details['Password'], str) and \
+                                    len(serv_details['ServerName']) >= 1 and \
+                                    len(serv_details['ServerPort']) >= 1:
+                                        all_servers_correct = True
+                                else:
+                                    return False
+                            else:
+                                return False
+                    else:
+                        return False
+                return all_servers_correct
+        else:
+            return False
+
+    def __read_file(self):
+        if os.path.exists(self.filePath):
+            data = json.load(open(self.filePath, 'r'))
+        else:
+            data = self.__create_default()
+        if self.__is_valid(data):
+            return data
+
     def __write_file(self):
-        json.dump(self.__data, open(self.filePath, 'w'), indent=4)
+        if self.__is_valid(data):
+            json.dump(self.__data, open(self.filePath, 'w'), indent=4)
 
     def get_settings(self):
         return self.__data
 
     def set_cultureCode(self, newCode):
-        """"Only strings like 'ru' or 'ru-RU' are allowed"""
-        newCode = str(newCode)
-        if len(newCode) == 2 or len(newCode) == 5:
             self.__data['CultureCode'] = newCode
             self.__write_file()
 
