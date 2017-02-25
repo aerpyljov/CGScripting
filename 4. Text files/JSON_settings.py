@@ -4,13 +4,13 @@
 """
 The script allows you to read and write settings of an application.
 There are the following settings:
-- "CultureCode" - like 'ru-RU', obligatory.
-- "Servers" - a list of servers, where each server is described by the following attributes:
-    - "ID" - integer, unique, obligatory.
-    - "ServerName" - string, obligatory.
-    - "ServerPort" - integer, obligatory.
-    - "UserName" - string, optional (if not specified, a user must enter it when runs the application).
-    - "Password" - string, optional (if not specified, a user must enter it when runs the application).
+- "CultureCode" - like 'ru' or 'ru-RU', obligatory.
+- "Servers" - a non-empty dictionary of servers, where each server is described by the following attributes:
+    - "ID" - a dictionary key - unique, obligatory.
+    - "ServerName" - obligatory.
+    - "ServerPort" - obligatory.
+    - "UserName" - optional (if not specified, a user must enter it when runs the application).
+    - "Password" - optional (if not specified, a user must enter it when runs the application).
 """
 
 import os
@@ -27,49 +27,61 @@ class Settings(object):
     @staticmethod
     def __create_default():
         data = {'CultureCode': 'ru-RU',
-                'Servers': [
-                    {1: {'ServerName': 'LOCALHOST', 'ServerPort': 1017,
-                     'UserName': '', 'Password': ''}}
-                ]}
+                'Servers':
+                    {
+                        1: {'ServerName': 'LOCALHOST', 'ServerPort': 1017,
+                            'UserName': '', 'Password': ''}
+                    }
+                }
         return data
 
-    def __is_valid(self, data):
-        if isinstance(data, dict) and \
-            len(data) == 2 and \
-            data.has_key('CultureCode') and data.has_key('Servers') and \
-            isinstance(data['CultureCode'], str) and \
-            (len(data['CultureCode']) == 2 or len(data['CultureCode']) == 5) and \
-            isinstance(data['Servers'], list):
-                all_servers_correct = False
-                for server in  data['Servers']:
-                    if isinstance(server, dict) and \
-                        len(server) == 1:
-                            for serv_id in  server.keys():
-                                if isinstance(serv_id, int):
-                                    all_servers_correct = True
-                                else:
-                                    return False
-                            for serv_details in server.values():
-                                if isinstance(serv_details, dict) and \
-                                    len(serv_details) == 4 and \
-                                    serv_details.has_key('ServerName') and \
-                                    serv_details.has_key('ServerPort') and \
-                                    serv_details.has_key('UserName') and \
-                                    serv_details.has_key('Password') and \
-                                    isinstance(serv_details['ServerPort'], int) and \
-                                    isinstance(serv_details['ServerName'], str) and \
-                                    isinstance(serv_details['UserName'], str) and \
-                                    isinstance(serv_details['Password'], str) and \
-                                    len(serv_details['ServerName']) >= 1 and \
-                                    len(serv_details['ServerPort']) >= 1:
-                                        all_servers_correct = True
-                                else:
-                                    return False
-                            else:
-                                return False
-                    else:
-                        return False
-                return all_servers_correct
+    @classmethod
+    def __settings_valid(cls, data):
+        if cls.__settigs_structure_valid(data) and \
+          cls.__culturecode_valid(data) and cls.__serverlist_valid(data):
+            return True
+        else:
+            return False
+
+    @classmethod
+    def __settigs_structure_valid(cls, data):
+        """Must be a dictionary with 2 keys"""
+        if isinstance(data, dict) and len(data) == 2 and \
+          'CultureCode' in data and 'Servers' in data:
+            return True
+        else:
+            return False
+
+    @classmethod
+    def __culturecode_valid(cls, data):
+        """Culture code must be like 'ru' or 'ru-RU'"""
+        code = data['CultureCode']
+        if isinstance(code, str) and \
+          (len(code) == 2 or len(code) == 5):
+            return True
+        else:
+            return False
+
+    @classmethod
+    def __serverlist_valid(cls, data):
+        """Servers must be a non-empty dictionary, where each server is valid"""
+        servers = data['Servers']
+        if isinstance(servers, dict) and servers:
+            for server in servers:
+                if not cls.__server_valid(server):
+                    return False
+            return True
+        else:
+            return False
+
+    @classmethod
+    def __server_valid(cls, server):
+        """Server must be a dictionary with 4 keys, and 2 of them cannot be empty"""
+        if isinstance(server, dict) and \
+          'ServerName' in server and 'ServerPort' in server and \
+          'UserName' in server and 'Password' in server and \
+          server['ServerName'] and server['ServerPort']:
+            return True
         else:
             return False
 
@@ -78,30 +90,42 @@ class Settings(object):
             data = json.load(open(self.filePath, 'r'))
         else:
             data = self.__create_default()
-        if self.__is_valid(data):
+        if self.__settings_valid(data):
             return data
 
     def __write_file(self):
-        if self.__is_valid(data):
-            json.dump(self.__data, open(self.filePath, 'w'), indent=4)
+        data = self.__data
+        if self.__settings_valid(data):
+            json.dump(data, open(self.filePath, 'w'), indent=4)
 
     def get_settings(self):
         return self.__data
 
-    def set_cultureCode(self, newCode):
-            self.__data['CultureCode'] = newCode
+    def set_culture_code(self, new_code):
+            self.__data['CultureCode'] = new_code
             self.__write_file()
 
-    def edit_serverByID(self, serverID, serverName = None,
-                        serverPort = None, userName = None, password = None):
-        if isinstance(serverID, int):
-            pass
+    def add_edit_server(self, server_id, server_name = None,
+            server_port = None, username = None, password = None):
+        servers = self.__data['Servers']
+        if server_id not in servers:
+            servers[server_id] = {}
+        server = servers[server_id]
+        server['ServerName'] = server_name
+        server['ServerPort'] = server_port
+        server['UserName'] = username
+        server['Password'] = password
+        self.__write_file()
 
-"""ОСТАНОВИЛСЯ ЗДЕСЬ
-В этом классе надо дописать, как обновить атрибуты сервера, не забыть возможность задавать имя и пароль юзера пустой строкой - смю isinstance('', type(None))
+    def remove_server(self, server_id):
+        servers = self.__data['Servers']
+        servers.pop(server_id, False)
+        self.__write_file()
 
-Дальше надо сделать методы для добавления и удаления серверов, а также получение текущей папки.
 
+
+"""
+TEST
 """
 
 
@@ -111,7 +135,7 @@ mySettings = Settings(r'C:\Users\Alexey\Documents\GitHub\CGScripting\4. Text fil
 
 print mySettings.get_settings()
 
-mySettings.set_cultureCode('en-US')
+mySettings.set_culture_code('en-US')
 
 print mySettings.get_settings()
 
