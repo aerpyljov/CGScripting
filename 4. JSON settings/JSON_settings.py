@@ -144,13 +144,13 @@ class Settings(object):
         server_id = unicode(server_id)
         if server_id in servers:
             server = servers[server_id]
-            if not isinstance(server_name, type(None)):
+            if server_name is not None:
                 server['ServerName'] = server_name
-            if not isinstance(server_port, type(None)):
+            if server_port is not None:
                 server['ServerPort'] = server_port
-            if not isinstance(username, type(None)):
+            if username is not None:
                 server['UserName'] = username
-            if not isinstance(password, type(None)):
+            if password is not None:
                 server['Password'] = password
             self.__write_file()
         else:
