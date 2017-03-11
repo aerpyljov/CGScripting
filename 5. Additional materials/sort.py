@@ -1,7 +1,10 @@
 import os
-p = r'C:\Windows\ru-RU'
+p = r'C:\Windows\en-US'
 l = os.listdir(p)
-sorted(l, reverse=1, key=lambda x: os.stat(os.path.join(p,x)).st_size)
-sorted(l,cmp=lambda x,y: x>y)
-l.sort()
 
+"""New lists sorted, but an existing list unchanged"""
+sorted(l, reverse=1, key=lambda x: os.stat(os.path.join(p,x)).st_size)
+sorted(l, cmp=lambda x, y: x > y)
+
+"""Sort an existing list"""
+l.sort()
