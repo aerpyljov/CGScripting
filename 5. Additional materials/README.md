@@ -7,3 +7,6 @@ All scripts are provided as parts of the course, but I amended them a bit and ad
 - "zip_func.py" - 'zip' function to create a new list, where each element is a tuple with elements of other lists. Example: how to find a middle point in 3D space, if several points are known.
 - "gen.py" - Functions, that returns generators, not values (using keyword 'yield' instead of 'return').
 - "contextmanager.py" - Construction 'with', like 'with open('c:/file')'. Methods '__enter__' and '__exit__'. Example: timer to measure, how much time a process took.
+- "getpath.py" - 
+- "zip_example.py" - 
+- "glb.py" - 
