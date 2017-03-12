@@ -9,5 +9,5 @@ All scripts are provided as parts of the course, but I amended them a bit and ad
 - "contextmanager.py" - Construction 'with', like 'with open('c:/file')'. Methods '__enter__' and '__exit__'. Example: timer to measure, how much time a process took.
 
 - "getpath.py" - Current folder, OS-based user folders and TEMP folders.
-- "zip_example.py" - 
-- "glb.py" - 
+- "zip_example.py" - Create ZIP-archives and unpack them.
+- "glb.py" - Module 'glob' to find files by names. Example: how to get a list of exe-files with names ending with a digit.
