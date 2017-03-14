@@ -1,21 +1,41 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+from __future__ import unicode_literals
 from PySide.QtGui import *
 from PySide.QtCore import *
 
-class myWidget(QWidget):
+
+class MyWidget(QWidget):
     def __init__(self):
-        super(myWidget, self).__init__()
+        super(MyWidget, self).__init__()
         layout = QVBoxLayout(self)
-        button = QPushButton('Print')
-        layout.addWidget(button)
-        button.clicked.connect(self.action)
-        line =QLineEdit()
+
+        main_label = QLabel('Enter any words and push the button:')
+        layout.addWidget(main_label)
+
+        line = QLineEdit()
         layout.addWidget(line)
         line.textChanged.connect(self.text)
-        # self.connect(button, SIGNAL('clicked()'),
-        #              self, SLOT('action()'))
+
+        button = QPushButton('Print')
+        layout.addWidget(button)
+
+        button.clicked.connect(self.action)    # First way to work with signals and slots
+
+        result_label = QLabel()
+        layout.addWidget(result_label)
+
+        """
+        # Second way to work with signals and slots
+        self.connect(button, SIGNAL('clicked()'),
+                     self, SLOT('action()'))
+
+        # Third way to work with signals and slots
         @button.clicked.connect
         def click():
             self.action()
+        """
 
     def action(self):
         print 'ACTION'
@@ -24,6 +44,6 @@ class myWidget(QWidget):
         print arg
 
 app = QApplication([])
-window = myWidget()
+window = MyWidget()
 window.show()
 app.exec_()
