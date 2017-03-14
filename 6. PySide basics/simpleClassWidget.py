@@ -1,16 +1,22 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+from __future__ import unicode_literals
 from PySide.QtGui import *
 
-class myWidget(QWidget):
+
+class MyWidget(QWidget):
     def __init__(self):
-        super(myWidget, self).__init__()
-        l = QVBoxLayout()
-        self.setLayout(l)
-        label = QLabel('Text')
-        l.addWidget(label)
-        b = QPushButton('OK')
-        l.addWidget(b)
+        super(MyWidget, self).__init__()    # Obligatory
+        layout = QVBoxLayout()
+        self.setLayout(layout)
+        label = QLabel('Эта кнопка тоже ничего не делает:')
+        layout.addWidget(label)
+        button = QPushButton('Проверить')
+        layout.addWidget(button)
+
 
 app = QApplication([])
-w = myWidget()
+w = MyWidget()
 w.show()
 app.exec_()
