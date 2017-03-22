@@ -1,14 +1,21 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from __future__ import unicode_literals
+from __future__ import unicode_literals, print_function
 from PySide.QtGui import *
 from PySide.QtCore import *
 
 
 class MyWidget(QWidget):
+    """
+    A widget with a static main label, a field for typing a line of text, a button
+    and the second label, that displays the text user entered after the button is pushed.
+    """
     def __init__(self):
         super(MyWidget, self).__init__()
+
+        self.text = ''
+
         layout = QVBoxLayout(self)
 
         main_label = QLabel('Enter any words and push the button:')
@@ -16,7 +23,7 @@ class MyWidget(QWidget):
 
         line = QLineEdit()
         layout.addWidget(line)
-        line.textChanged.connect(self.text)
+        line.textChanged.connect(self.set_text)
 
         button = QPushButton('Print')
         layout.addWidget(button)
@@ -38,10 +45,10 @@ class MyWidget(QWidget):
         """
 
     def action(self):
-        print 'ACTION'
+        print(self.text)
 
-    def text(self, arg):
-        print arg
+    def set_text(self, arg):
+        self.text = arg
 
 app = QApplication([])
 window = MyWidget()
