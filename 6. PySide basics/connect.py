@@ -46,9 +46,10 @@ class MyWidget(QWidget):
         self.result_label.setText(text)
 
 
-app = QApplication([])
+if __name__ == '__main__':
+    app = QApplication([])
 
-window = MyWidget('Simple widget')
-window.show()
+    window = MyWidget('Simple widget')
+    window.show()
 
-app.exec_()
+    app.exec_()
