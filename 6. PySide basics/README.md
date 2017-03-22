@@ -6,6 +6,7 @@ All scripts are provided as parts of the course, but I amended them a bit and ad
 - "compile_ui" - BAT-scripts for creating Python files (.py) from Qt Designer files (.ui), using PyQt or PySide. Drag an UI-file and drop it on a BAT-file.
 - "changeText.py" - the course author's example how to change a label when a button is clicked.
 - "mainwindow.py" - the main application window, with a menu bar and so on.
+- "exampleWindow" - a Python package with '.ui' files, compiled into '.py' files for both PySide and PyQt, plus the main application file.
 
 Some of the examples are completely rewritten:
 
