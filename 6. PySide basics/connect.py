@@ -14,21 +14,21 @@ class MyWidget(QWidget):
         super(MyWidget, self).__init__()
         self.setWindowTitle(caption)
 
-        self.layout = QVBoxLayout(self)
+        self.main_layout = QVBoxLayout(self)  # Don't use "self.layout" name, it rewrites QWidget's method
 
         main_label = QLabel('Enter any words and push the button:')
-        self.layout.addWidget(main_label)
+        self.main_layout.addWidget(main_label)
 
         self.line = QLineEdit()
-        self.layout.addWidget(self.line)
+        self.main_layout.addWidget(self.line)
 
         self.button = QPushButton('Print')
-        self.layout.addWidget(self.button)
+        self.main_layout.addWidget(self.button)
 
         self.button.clicked.connect(self.display_text)    # First way to work with signals and slots
 
         self.result_label = QLabel()
-        self.layout.addWidget(self.result_label)
+        self.main_layout.addWidget(self.result_label)
 
         """
         # Second way to work with signals and slots
