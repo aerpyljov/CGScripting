@@ -14,8 +14,6 @@ class MyWidget(QWidget):
         super(MyWidget, self).__init__()
         self.setWindowTitle(caption)
 
-        self.__text = ''
-
         self.layout = QVBoxLayout(self)
 
         main_label = QLabel('Enter any words and push the button:')
@@ -23,7 +21,6 @@ class MyWidget(QWidget):
 
         self.line = QLineEdit()
         self.layout.addWidget(self.line)
-        self.line.textChanged.connect(self.set_text)
 
         self.button = QPushButton('Print')
         self.layout.addWidget(self.button)
@@ -45,10 +42,9 @@ class MyWidget(QWidget):
         """
 
     def display_text(self):
-        self.result_label.setText(self.__text)
+        text = self.line.text()
+        self.result_label.setText(text)
 
-    def set_text(self, arg):
-        self.__text = arg
 
 app = QApplication([])
 
