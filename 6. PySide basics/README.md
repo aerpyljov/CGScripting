@@ -5,6 +5,7 @@ All scripts are provided as parts of the course, but I amended them a bit and ad
 - "connect.py" - working with signals and slots. Example: an action when a button is clicked.
 - "compile_ui" - BAT-scripts for creating Python files (.py) from Qt Designer files (.ui), using PyQt or PySide. Drag an UI-file and drop it on a BAT-file.
 - "changeText.py" - the course author's example how to change a label when a button is clicked.
+- "mainwindow.py" - the main application window, with a menu bar and so on.
 
 Some of the examples are completely rewritten:
 
