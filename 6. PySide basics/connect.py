@@ -3,7 +3,6 @@
 
 from __future__ import unicode_literals, print_function
 from PySide.QtGui import *
-from PySide.QtCore import *
 
 
 class MyWidget(QWidget):
@@ -11,8 +10,9 @@ class MyWidget(QWidget):
     A widget with a static main label, a field for typing a line of text, a button
     and the second label, that displays the text user entered after the button is pushed.
     """
-    def __init__(self):
+    def __init__(self, caption):
         super(MyWidget, self).__init__()
+        self.setWindowTitle(caption)
 
         self.__text = ''
 
@@ -35,11 +35,11 @@ class MyWidget(QWidget):
 
         """
         # Second way to work with signals and slots
-        self.connect(button, SIGNAL('clicked()'),
+        self.connect(self.button, SIGNAL('clicked()'),
                      self, SLOT('action()'))
 
         # Third way to work with signals and slots
-        @button.clicked.connect
+        @self.button.clicked.connect
         def click():
             self.action()
         """
@@ -51,6 +51,8 @@ class MyWidget(QWidget):
         self.__text = arg
 
 app = QApplication([])
-window = MyWidget()
+
+window = MyWidget('Simple widget')
 window.show()
+
 app.exec_()
