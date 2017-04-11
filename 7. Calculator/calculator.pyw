@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+from __future__ import unicode_literals
 from PySide.QtGui import *
 from decimal import *
 import calculator_UIs as ui
@@ -12,12 +13,13 @@ class Calculator(QMainWindow, ui.Ui_Calculator):
         self.setupUi(self)
 
         # Attributes
-        self.__value = '455.66'
-        self.__value_sign = False
-        self.__display_value_sign = self.get_display_value_sign()
-        self.__previous_value = '776'
-        self.__next_operation = 'addition'
-        self.__display_next_operation = self.get_display_next_operation()
+        self.__value = '0'
+        self.__value_sign = True
+        self.__display_value_sign = self.__get_display_value_sign()
+        self.__previous_value = '0'
+        self.__next_operation = ''
+        self.__display_next_operation = self.__get_display_next_operation()
+        self.__just_calculated = False
 
         self.__display_all()
 
@@ -45,20 +47,20 @@ class Calculator(QMainWindow, ui.Ui_Calculator):
 
     def __display_all(self):
         """Mapping attributes to UI labels"""
-        self.__display_value_sign = self.get_display_value_sign()
-        self.__display_next_operation = self.get_display_next_operation()
-        self.value_lb.setText(self.__value)
+        self.__display_value_sign = self.__get_display_value_sign()
+        self.__display_next_operation = self.__get_display_next_operation()
+        self.value_lb.setText(self.__value if not self.__just_calculated else self.__previous_value)
         self.value_sign_lb.setText(self.__display_value_sign)
-        self.previous_value_lb.setText(self.__previous_value)
+        self.previous_value_lb.setText(self.__previous_value if self.__previous_value != '0' else None)
         self.next_operation_lb.setText(self.__display_next_operation)
 
-    def get_display_value_sign(self):
+    def __get_display_value_sign(self):
         if self.__value_sign:
             return ''
         else:
             return '-'
 
-    def get_display_next_operation(self):
+    def __get_display_next_operation(self):
         no = self.__next_operation
         if no == 'division':
             return '÷'
@@ -68,29 +70,34 @@ class Calculator(QMainWindow, ui.Ui_Calculator):
             return '-'
         elif no == 'addition':
             return '+'
-        else:
-            return ''
 
     def clear_all(self):
         self.__value = '0'
         self.__value_sign = True
-        self.__previous_value = ''
+        self.__previous_value = '0'
         self.__next_operation = ''
+        self.__just_calculated = False
         self.__display_all()
 
     def clear_value(self):
         self.__value = '0'
         self.__value_sign = True
+        self.__just_calculated = False
         self.__display_all()
 
     def add_digit(self, digit):
         if digit in '0123456789':
-            self.__value = self.__value + digit
+            if self.__value == '0':
+                self.__value = digit
+            else:
+                self.__value = self.__value + digit
+        self.__just_calculated = False
         self.__display_all()
 
     def add_decimal_delimiter(self):
         if '.' not in self.__value:
             self.__value = self.__value + '.'
+            self.__just_calculated = False
         self.__display_all()
 
     def remove_last_symbol(self):
@@ -98,15 +105,20 @@ class Calculator(QMainWindow, ui.Ui_Calculator):
         self.__value = self.__value[:-1]
         if not self.__value:
             self.__value = '0'
+            self.__value_sign = True
         self.__display_all()
 
     def change_sign(self):
-        self.__value_sign = not self.__value_sign
+        if self.__value == '0':
+            self.__value_sign = True
+        else:
+            self.__value_sign = not self.__value_sign
         self.__display_all()
 
     def choose_next_operation(self, operation):
-        if operation in ['division', 'multiplication',
-                         'subtraction', 'addition']:
+        if not self.__just_calculated:
+            self.calculate_expression()
+        if operation in ['division', 'multiplication','subtraction', 'addition']:
             self.__next_operation = operation
         self.__display_all()
 
@@ -124,15 +136,12 @@ class Calculator(QMainWindow, ui.Ui_Calculator):
         elif no == 'addition':
             v = pv + v
 
-        if v < 0:
-            self.__value_sign = False
-            self.__value = str(abs(v))
-        else:
-            self.__value_sign = True
-            self.__value = str(v)
+        self.__value_sign = True
+        self.__value = '0'
 
-        self.__previous_value = ''
+        self.__previous_value = str(v)
         self.__next_operation = ''
+        self.__just_calculated = True
         self.__display_all()
 
 
