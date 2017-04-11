@@ -17,6 +17,7 @@ class Calculator(QMainWindow, ui.Ui_Calculator):
         self.__value_sign = True
         self.__display_value_sign = self.__get_display_value_sign()
         self.__previous_value = '0'
+        self.__last_used_value = None
         self.__next_operation = ''
         self.__display_next_operation = self.__get_display_next_operation()
         self.__just_calculated = False
@@ -51,7 +52,7 @@ class Calculator(QMainWindow, ui.Ui_Calculator):
         self.__display_next_operation = self.__get_display_next_operation()
         self.value_lb.setText(self.__value if not self.__just_calculated else self.__previous_value)
         self.value_sign_lb.setText(self.__display_value_sign)
-        self.previous_value_lb.setText(self.__previous_value if self.__previous_value != '0' else None)
+        self.previous_value_lb.setText(self.__previous_value if (self.__previous_value != '0' or self.__display_next_operation) else None)
         self.next_operation_lb.setText(self.__display_next_operation)
 
     def __get_display_value_sign(self):
@@ -106,6 +107,7 @@ class Calculator(QMainWindow, ui.Ui_Calculator):
         if not self.__value:
             self.__value = '0'
             self.__value_sign = True
+        self.__just_calculated = False
         self.__display_all()
 
     def change_sign(self):
@@ -124,8 +126,12 @@ class Calculator(QMainWindow, ui.Ui_Calculator):
 
     def calculate_expression(self):
         no = self.__next_operation
-        v = Decimal(self.__display_value_sign + self.__value)
         pv = Decimal(self.__previous_value)
+        if self.__just_calculated:
+            v = self.__last_used_value
+        else:
+            v = Decimal(self.__display_value_sign + self.__value)
+            self.__last_used_value = v
 
         if no == 'division':
             v = pv / v
@@ -140,7 +146,6 @@ class Calculator(QMainWindow, ui.Ui_Calculator):
         self.__value = '0'
 
         self.__previous_value = str(v)
-        self.__next_operation = ''
         self.__just_calculated = True
         self.__display_all()
 
