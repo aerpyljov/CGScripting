@@ -85,65 +85,61 @@ class Calculator(QMainWindow, ui.Ui_Calculator):
         elif no == 'addition':
             return '+'
 
+    def __display_decorator(method):
+        def wrapper(self, *argv, **kwargs):
+            method(self, *argv, **kwargs)
+            self.__just_calculated = False
+            self.__error_division_by_zero = False
+            self.__display_all()
+        return wrapper
+
+    @__display_decorator
     def clear_value(self):
         self.__value = '0'
         self.__value_sign = True
         self.__last_used_value = None
         self.__last_used_operation = None
-        self.__just_calculated = False
-        self.__error_division_by_zero = False
-        self.__display_all()
 
     def clear_all(self):
         self.__previous_value = '0'
         self.__next_operation = ''
         self.clear_value()
 
+    @__display_decorator
     def add_digit(self, digit):
         if digit in '0123456789':
             if self.__value == '0':
                 self.__value = digit
             else:
                 self.__value = self.__value + digit
-        self.__just_calculated = False
-        self.__error_division_by_zero = False
-        self.__display_all()
 
+    @__display_decorator
     def add_decimal_delimiter(self):
         if '.' not in self.__value:
             self.__value = self.__value + '.'
             self.__just_calculated = False
-        self.__just_calculated = False
-        self.__error_division_by_zero = False
-        self.__display_all()
 
+    @__display_decorator
     def remove_last_symbol(self):
         """Remove last digit or decimal delimiter"""
         self.__value = self.__value[:-1]
         if not self.__value:
             self.__value = '0'
             self.__value_sign = True
-        self.__just_calculated = False
-        self.__error_division_by_zero = False
-        self.__display_all()
 
+    @__display_decorator
     def change_sign(self):
         if self.__value == '0':
             self.__value_sign = True
         else:
             self.__value_sign = not self.__value_sign
-        self.__just_calculated = False
-        self.__error_division_by_zero = False
-        self.__display_all()
 
+    @__display_decorator
     def choose_next_operation(self, operation):
         if not self.__just_calculated and self.__value != '0':
             self.calculate_expression()
         if operation in ['division', 'multiplication','subtraction', 'addition']:
             self.__next_operation = operation
-        self.__just_calculated = False
-        self.__error_division_by_zero = False
-        self.__display_all()
 
     def calculate_expression(self):
         pv = Decimal(self.__previous_value)
