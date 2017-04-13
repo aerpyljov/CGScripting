@@ -19,6 +19,7 @@ class Calculator(QMainWindow, ui.Ui_Calculator):
         self.__previous_value = '0'
         self.__last_used_value = None
         self.__next_operation = ''
+        self.__last_used_operation = None
         self.__display_next_operation = self.__get_display_next_operation()
         self.__just_calculated = False
 
@@ -72,19 +73,16 @@ class Calculator(QMainWindow, ui.Ui_Calculator):
         elif no == 'addition':
             return '+'
 
-    def clear_all(self):
-        self.__value = '0'
-        self.__value_sign = True
-        self.__previous_value = '0'
-        self.__next_operation = ''
-        self.__just_calculated = False
-        self.__display_all()
-
     def clear_value(self):
         self.__value = '0'
         self.__value_sign = True
         self.__just_calculated = False
         self.__display_all()
+
+    def clear_all(self):
+        self.__previous_value = '0'
+        self.__next_operation = ''
+        self.clear_value()
 
     def add_digit(self, digit):
         if digit in '0123456789':
@@ -99,6 +97,7 @@ class Calculator(QMainWindow, ui.Ui_Calculator):
         if '.' not in self.__value:
             self.__value = self.__value + '.'
             self.__just_calculated = False
+        self.__just_calculated = False
         self.__display_all()
 
     def remove_last_symbol(self):
@@ -115,6 +114,7 @@ class Calculator(QMainWindow, ui.Ui_Calculator):
             self.__value_sign = True
         else:
             self.__value_sign = not self.__value_sign
+        self.__just_calculated = False
         self.__display_all()
 
     def choose_next_operation(self, operation):
@@ -122,24 +122,32 @@ class Calculator(QMainWindow, ui.Ui_Calculator):
             self.calculate_expression()
         if operation in ['division', 'multiplication','subtraction', 'addition']:
             self.__next_operation = operation
+        self.__just_calculated = False
         self.__display_all()
 
     def calculate_expression(self):
-        no = self.__next_operation
         pv = Decimal(self.__previous_value)
+
+        # If '=' pressed again, repeat the last operation
         if self.__just_calculated:
             v = self.__last_used_value
+            operation = self.__last_used_operation
         else:
             v = Decimal(self.__display_value_sign + self.__value)
+            operation = self.__next_operation
             self.__last_used_value = v
+            self.__last_used_operation = operation
 
-        if no == 'division':
+        if pv == Decimal('0'):
+            operation = ''
+
+        if operation == 'division':
             v = pv / v
-        elif no == 'multiplication':
+        elif operation == 'multiplication':
             v = pv * v
-        elif no == 'subtraction':
+        elif operation == 'subtraction':
             v = pv - v
-        elif no == 'addition':
+        elif operation == 'addition':
             v = pv + v
 
         self.__value_sign = True
