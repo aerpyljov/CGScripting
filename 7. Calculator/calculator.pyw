@@ -64,9 +64,9 @@ class Calculator(QMainWindow, ui.Ui_Calculator):
             if self.__error_division_by_zero:
                 return 'Cannot divide by zero'
             else:
-                return self.__previous_value
+                return self.__previous_value[:25] # To fit the app width
         else:
-            return self.__value
+            return self.__value[:25] # To fit the app width
 
     def __get_display_value_sign(self):
         if self.__value_sign:
