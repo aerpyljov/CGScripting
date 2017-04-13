@@ -31,6 +31,12 @@
     <height>350</height>
    </size>
   </property>
+  <property name="font">
+   <font>
+    <family>Segoe UI</family>
+    <pointsize>12</pointsize>
+   </font>
+  </property>
   <property name="windowTitle">
    <string>Calculator</string>
   </property>
@@ -93,6 +99,11 @@
       </item>
       <item>
        <widget class="QLabel" name="value_sign_lb">
+        <property name="font">
+         <font>
+          <pointsize>20</pointsize>
+         </font>
+        </property>
         <property name="text">
          <string/>
         </property>
@@ -103,6 +114,11 @@
       </item>
       <item>
        <widget class="QLabel" name="value_lb">
+        <property name="font">
+         <font>
+          <pointsize>20</pointsize>
+         </font>
+        </property>
         <property name="text">
          <string/>
         </property>

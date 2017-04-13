@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'C:\Users\Alexey\Documents\GitHub\CGScripting\7. Calculator\calculator.ui'
 #
-# Created: Fri Mar 31 12:04:44 2017
+# Created: Thu Apr 13 19:38:45 2017
 #      by: pyside-uic 0.2.15 running on PySide 1.2.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -21,6 +21,10 @@ class Ui_Calculator(object):
         Calculator.setSizePolicy(sizePolicy)
         Calculator.setMinimumSize(QtCore.QSize(600, 350))
         Calculator.setMaximumSize(QtCore.QSize(600, 350))
+        font = QtGui.QFont()
+        font.setFamily("Segoe UI")
+        font.setPointSize(12)
+        Calculator.setFont(font)
         self.centralwidget = QtGui.QWidget(Calculator)
         self.centralwidget.setAutoFillBackground(False)
         self.centralwidget.setObjectName("centralwidget")
@@ -46,11 +50,17 @@ class Ui_Calculator(object):
         spacerItem1 = QtGui.QSpacerItem(40, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
         self.horizontalLayout_2.addItem(spacerItem1)
         self.value_sign_lb = QtGui.QLabel(self.centralwidget)
+        font = QtGui.QFont()
+        font.setPointSize(20)
+        self.value_sign_lb.setFont(font)
         self.value_sign_lb.setText("")
         self.value_sign_lb.setAlignment(QtCore.Qt.AlignRight|QtCore.Qt.AlignTrailing|QtCore.Qt.AlignVCenter)
         self.value_sign_lb.setObjectName("value_sign_lb")
         self.horizontalLayout_2.addWidget(self.value_sign_lb)
         self.value_lb = QtGui.QLabel(self.centralwidget)
+        font = QtGui.QFont()
+        font.setPointSize(20)
+        self.value_lb.setFont(font)
         self.value_lb.setText("")
         self.value_lb.setAlignment(QtCore.Qt.AlignRight|QtCore.Qt.AlignTrailing|QtCore.Qt.AlignVCenter)
         self.value_lb.setObjectName("value_lb")
