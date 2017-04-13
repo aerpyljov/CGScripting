@@ -15,13 +15,15 @@ class Calculator(QMainWindow, ui.Ui_Calculator):
         # Attributes
         self.__value = '0'
         self.__value_sign = True
-        self.__display_value_sign = self.__get_display_value_sign()
         self.__previous_value = '0'
         self.__last_used_value = None
         self.__next_operation = ''
         self.__last_used_operation = None
-        self.__display_next_operation = self.__get_display_next_operation()
         self.__just_calculated = False
+        self.__error_division_by_zero = False
+        self.__display_value = self.__get_display_value()
+        self.__display_value_sign = self.__get_display_value_sign()
+        self.__display_next_operation = self.__get_display_next_operation()
 
         self.__display_all()
 
@@ -49,12 +51,22 @@ class Calculator(QMainWindow, ui.Ui_Calculator):
 
     def __display_all(self):
         """Mapping attributes to UI labels"""
+        self.__display_value = self.__get_display_value()
         self.__display_value_sign = self.__get_display_value_sign()
         self.__display_next_operation = self.__get_display_next_operation()
-        self.value_lb.setText(self.__value if not self.__just_calculated else self.__previous_value)
+        self.value_lb.setText(self.__display_value)
         self.value_sign_lb.setText(self.__display_value_sign)
         self.previous_value_lb.setText(self.__previous_value if (self.__previous_value != '0' or self.__display_next_operation) else None)
         self.next_operation_lb.setText(self.__display_next_operation)
+
+    def __get_display_value(self):
+        if self.__just_calculated:
+            if self.__error_division_by_zero:
+                return 'Cannot divide by zero'
+            else:
+                return self.__previous_value
+        else:
+            return self.__value
 
     def __get_display_value_sign(self):
         if self.__value_sign:
@@ -76,7 +88,10 @@ class Calculator(QMainWindow, ui.Ui_Calculator):
     def clear_value(self):
         self.__value = '0'
         self.__value_sign = True
+        self.__last_used_value = None
+        self.__last_used_operation = None
         self.__just_calculated = False
+        self.__error_division_by_zero = False
         self.__display_all()
 
     def clear_all(self):
@@ -91,6 +106,7 @@ class Calculator(QMainWindow, ui.Ui_Calculator):
             else:
                 self.__value = self.__value + digit
         self.__just_calculated = False
+        self.__error_division_by_zero = False
         self.__display_all()
 
     def add_decimal_delimiter(self):
@@ -98,6 +114,7 @@ class Calculator(QMainWindow, ui.Ui_Calculator):
             self.__value = self.__value + '.'
             self.__just_calculated = False
         self.__just_calculated = False
+        self.__error_division_by_zero = False
         self.__display_all()
 
     def remove_last_symbol(self):
@@ -107,6 +124,7 @@ class Calculator(QMainWindow, ui.Ui_Calculator):
             self.__value = '0'
             self.__value_sign = True
         self.__just_calculated = False
+        self.__error_division_by_zero = False
         self.__display_all()
 
     def change_sign(self):
@@ -115,14 +133,16 @@ class Calculator(QMainWindow, ui.Ui_Calculator):
         else:
             self.__value_sign = not self.__value_sign
         self.__just_calculated = False
+        self.__error_division_by_zero = False
         self.__display_all()
 
     def choose_next_operation(self, operation):
-        if not self.__just_calculated:
+        if not self.__just_calculated and self.__value != '0':
             self.calculate_expression()
         if operation in ['division', 'multiplication','subtraction', 'addition']:
             self.__next_operation = operation
         self.__just_calculated = False
+        self.__error_division_by_zero = False
         self.__display_all()
 
     def calculate_expression(self):
@@ -142,7 +162,10 @@ class Calculator(QMainWindow, ui.Ui_Calculator):
             operation = ''
 
         if operation == 'division':
-            v = pv / v
+            if v == Decimal('0'):
+                self.__error_division_by_zero = True
+            else:
+                v = pv / v
         elif operation == 'multiplication':
             v = pv * v
         elif operation == 'subtraction':
