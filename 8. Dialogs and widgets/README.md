@@ -3,6 +3,7 @@ All scripts are provided as parts of the course, but I amended them a bit and ad
 - "InputDialog.py" - a simple dialog window based on QInputDialog.
 - "FileDialog.py" - a simple dialog window based on QFileDialog.
 - "CustomDialog" - a user-defined dialog window based on QDialog.
+- "list_widget.py" - show a list of files in the current folder, display the text of the selected file and open the double-clicked file.
 
 
 
