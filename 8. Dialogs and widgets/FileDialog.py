@@ -11,8 +11,8 @@ class simpleWindow(QWidget):
         self.btn.clicked.connect(self.showMessage)
 
     def showMessage(self):
-        _filter = 'Python File(*.py);; All(*.*)'
-        d = QFileDialog.getOpenFileName(self, 'Set folder', 'c:/tmp', _filter)
+        _filter = 'Python File(*.py *pyw);; All(*.*)'
+        d = QFileDialog.getOpenFileNames(self, 'Set folder', 'c:/tmp', _filter)
         print d
 
 if __name__ == '__main__':
