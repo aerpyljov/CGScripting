@@ -1,8 +1,10 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+from __future__ import unicode_literals, print_function
 from PySide.QtGui import *
 from widgets import projectManager_UI as ui, projectListWidget
+import settingsDialog
 
 
 class ProjectManagerClass(QMainWindow, ui.Ui_projectManager):
@@ -21,7 +23,9 @@ class ProjectManagerClass(QMainWindow, ui.Ui_projectManager):
         pass
 
     def open_settings_dialog(self):
-        pass
+        self.dial = settingsDialog.SettingsDialogClass(self)
+        if self.dial.exec_():
+            print('SETTINGS OK')
 
     def open_template_editor_dialog(self):
         pass
