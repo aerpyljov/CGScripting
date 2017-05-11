@@ -5,11 +5,12 @@ import os
 import json
 
 settingsFileName = 'ProjectManagerSettings.json'
+settingsFolder = os.path.expanduser('~')
 
 
 class SettingsClass(object):
     def __init__(self):
-        self.path = os.path.join(os.path.expanduser('~'), settingsFileName)
+        self.path = os.path.join(settingsFolder, settingsFileName)
         if not os.path.exists(self.path):
             self.make_default(self.path)
 
