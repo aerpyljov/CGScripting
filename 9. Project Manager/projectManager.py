@@ -4,7 +4,7 @@
 from __future__ import unicode_literals, print_function
 from PySide.QtGui import *
 from widgets import projectManager_UI as ui, projectListWidget
-import settingsDialog, createProjectDialog
+import settingsDialog, createProjectDialog, templateEditor
 
 
 class ProjectManagerClass(QMainWindow, ui.Ui_projectManager):
@@ -23,14 +23,18 @@ class ProjectManagerClass(QMainWindow, ui.Ui_projectManager):
         pass
 
     def open_settings_dialog(self):
+        # Modal window
         self.dial = settingsDialog.SettingsDialogClass(self)
         if self.dial.exec_():
             print('SETTINGS OK')
 
     def open_template_editor_dialog(self):
-        pass
+        # Modeless window
+        self.dial = templateEditor.TemplateEditorClass()
+        self.dial.show()
 
     def create_project(self):
+        # Modal window
         self.dial = createProjectDialog.CreateProjectDialogClass(self)
         if self.dial.exec_():
             print('CREATE')
