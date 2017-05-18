@@ -4,7 +4,7 @@
 from __future__ import unicode_literals, print_function
 from PySide.QtGui import *
 from widgets import projectManager_UI as ui, projectListWidget
-import settingsDialog, createProjectDialog, templateEditor, settings
+import settingsDialog, createProjectDialog, templateEditor, settings, createProject
 
 
 class ProjectManagerClass(QMainWindow, ui.Ui_projectManager):
@@ -48,7 +48,8 @@ class ProjectManagerClass(QMainWindow, ui.Ui_projectManager):
         self.dial = createProjectDialog.CreateProjectDialogClass(self)
         if self.dial.exec_():
             data = self.dial.getDialogData()
-            print(data)
+            createProject.createProject(data)
+            self.update_list()
 
     def show_info(self):
         pass

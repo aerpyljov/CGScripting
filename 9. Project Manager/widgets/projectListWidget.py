@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 from PySide.QtGui import *
-import settings
+import settings, createProject
 import os
 
 
@@ -24,7 +24,7 @@ class ProjectListClass(QListWidget):
             return False
 
     def isProject(self, path):
-        return True
+        return os.path.exists(os.path.join(path, createProject.projectFile))
 
     def addProject(self, name):
         item = QListWidgetItem()
