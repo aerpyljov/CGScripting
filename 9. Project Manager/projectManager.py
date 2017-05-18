@@ -47,7 +47,8 @@ class ProjectManagerClass(QMainWindow, ui.Ui_projectManager):
         # Modal window
         self.dial = createProjectDialog.CreateProjectDialogClass(self)
         if self.dial.exec_():
-            print('CREATE')
+            data = self.dial.getDialogData()
+            print(data)
 
     def show_info(self):
         pass

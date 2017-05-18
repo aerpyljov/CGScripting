@@ -3,6 +3,7 @@
 
 from PySide.QtGui import *
 import settings
+import os
 
 
 class ProjectListClass(QListWidget):
@@ -11,9 +12,22 @@ class ProjectListClass(QListWidget):
 
     def update_project_list(self):
         data = settings.SettingsClass().load()
-        if data.get('path'):
+        path = data.get('path')
+        if path:
+            if os.path.exists(path):
+                for f in os.listdir(path):
+                    fullPath = os.path.join(path, f)
+                    if self.isProject(fullPath):
+                        self.addProject(f)
             return True
         else:
             return False
 
+    def isProject(self, path):
+        return True
+
+    def addProject(self, name):
+        item = QListWidgetItem()
+        item.setText(name)
+        self.addItem(item)
 
