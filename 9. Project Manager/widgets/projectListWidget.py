@@ -11,6 +11,7 @@ class ProjectListClass(QListWidget):
         super(ProjectListClass, self).__init__()
 
     def update_project_list(self):
+        self.clear()
         data = settings.SettingsClass().load()
         path = data.get('path')
         if path:
@@ -18,7 +19,8 @@ class ProjectListClass(QListWidget):
                 for f in os.listdir(path):
                     fullPath = os.path.join(path, f)
                     if self.isProject(fullPath):
-                        self.addProject(f)
+                        item = self.addProject(f)
+                        item.setData(32, fullPath)
             return True
         else:
             return False
@@ -30,4 +32,5 @@ class ProjectListClass(QListWidget):
         item = QListWidgetItem()
         item.setText(name)
         self.addItem(item)
+        return item
 

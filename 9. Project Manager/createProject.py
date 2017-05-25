@@ -40,3 +40,7 @@ def makeProjectFile(path, data):
 def checkLegalCharacters(name):
     return name
 
+def getProjectInfo(path):
+    filePath = os.path.join(path, projectFile)
+    with open(filePath, 'r') as f:
+        return json.load(f)

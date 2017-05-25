@@ -5,7 +5,7 @@ from __future__ import unicode_literals, print_function
 from PySide.QtGui import *
 from widgets import projectManager_UI as ui, projectListWidget
 import settingsDialog, createProjectDialog, templateEditor, settings, createProject
-
+import webbrowser
 
 class ProjectManagerClass(QMainWindow, ui.Ui_projectManager):
     def __init__(self):
@@ -20,9 +20,12 @@ class ProjectManagerClass(QMainWindow, ui.Ui_projectManager):
         self.create_btn.clicked.connect(self.create_project)
         self.settings_btn.clicked.connect(self.open_settings_dialog)
         self.templateEditor_btn.clicked.connect(self.open_template_editor_dialog)
+        self.projectList_lwd.itemClicked.connect(self.show_info)
+        self.projectList_lwd.itemDoubleClicked.connect(self.openProject)
 
         # start
         self.update_list()
+        self.info_lb.setText('')
 
     def update_list(self):
         if not self.projectList_lwd.update_project_list():
@@ -51,8 +54,22 @@ class ProjectManagerClass(QMainWindow, ui.Ui_projectManager):
             createProject.createProject(data)
             self.update_list()
 
-    def show_info(self):
-        pass
+    def show_info(self, item):
+        info = createProject.getProjectInfo(item.data(32))
+        if info:
+            text = """Name:
+{0}
+
+Comment:
+{1}
+""".format(info['name'], info['comment'])
+        else:
+            text = ''
+        self.info_lb.setText(text)
+
+    def openProject(self, item):
+        path = item.data(32)
+        webbrowser.open(path)
 
 
 if __name__ == '__main__':
