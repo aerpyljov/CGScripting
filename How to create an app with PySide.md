@@ -8,6 +8,7 @@ There is some basic information how to create your application:
 2. Compile ui-files as py-files (I usually add ending "_UI.py" in order to distinguish them from my py-files).
 For PySide and PyQt, respectively:
 
+	
 	C:\Python27\Scripts\pyside-uic.exe "{0}" -o "{1}"
 	C:\Python27\Lib\site-packages\PyQt4\pyuic4.bat "{0}" -o "{1}"
 
@@ -44,7 +45,7 @@ Example:
 Modal dialogs have a parent (the main window or another dialog), but modeless ones don't.
 Modal dialog:
 
-
+	
 	class SettingsDialogClass(QDialog, ui.Ui_settingsDialog):
 		def __init__(self, parent):
 			super(SettingsDialogClass, self).__init__(parent)
@@ -62,6 +63,7 @@ Modeless dialog:
 It is useful, if the widgets wave a lot of related methods.
 The code is similar to dialogs, but without calling "self.setupUi(self)" in "\_\_init\_\_", plus you usually don't have a ui-file for them:
 
+	
 	class ProjectListClass(QListWidget):
 		def __init__(self):
 			super(ProjectListClass, self).__init__()
@@ -70,6 +72,7 @@ The code is similar to dialogs, but without calling "self.setupUi(self)" in "\_\
 6. Add your complex widgets on the main window and the dialogs where necessary (you should have a layout for them).
 It is done in the "\_\_init\_\_" method:
 
+	
 	self.projectList_lwd = projectListWidget.ProjectListClass()
 	self.projectList_ly.addWidget(self.projectList_lwd)
 
@@ -79,7 +82,7 @@ It is done in the "\_\_init\_\_" method:
 -	Connect buttons and other GUI-elements with the methods, that must be called.
 -	Open dialogs from the main window or other dialogs (pay attention, that you need to call modal dialogs with "self" and modeless ones without, plus you need to show modeless dialogs manually).
 
-
+	
 	class ProjectManagerClass(QMainWindow, ui.Ui_projectManager):
 		def __init__(self):
 		super(ProjectManagerClass, self).__init__()
