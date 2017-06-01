@@ -13,10 +13,7 @@ C:\Python27\Scripts\pyside-uic.exe "{0}" -o "{1}"
 C:\Python27\Lib\site-packages\PyQt4\pyuic4.bat "{0}" -o "{1}"
 ```
 
-Here:
-
-{0} - Name of the ui-file.
-{1} - Name of the compiled py-file ("_UI.py").
+Here {0} and {1} - names of the ui-file and the compiled py-file ("_UI.py"), respectively.
 
 
 3. Create the main py-file of the application:
@@ -43,7 +40,7 @@ if __name__ == '__main__':
 	app.exec_()
 ```
 
-4. Create py-files for dialogs in the same way, as for the main window (except showing them).
+4. Create py-files for dialogs in the same way as for the main window (except showing them).
 Modal dialogs have a parent (the main window or another dialog), but modeless ones don't.
 Modal dialog:
 
@@ -64,7 +61,7 @@ class TemplateEditorClass(QDialog, ui.Ui_templateEditor):
 ```
 
 5. Create py-files for complex widgets, that will be added on the main window or a dialog window in your code.
-It is useful, if the widgets wave a lot of related methods.
+It is useful, if the widgets have a lot of related methods.
 The code is similar to dialogs, but without calling "self.setupUi(self)" in "\_\_init\_\_", plus you usually don't have a ui-file for them:
 
 ```python
