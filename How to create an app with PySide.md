@@ -6,12 +6,10 @@ There is some basic information how to create your application:
 
 
 2. Compile ui-files as py-files (I usually add ending "_UI.py" in order to distinguish them from my py-files).
-For PySide:
+For PySide and PyQt, respectively:
+
 
 	C:\Python27\Scripts\pyside-uic.exe "{0}" -o "{1}"
-
-For PyQt:
-
 	C:\Python27\Lib\site-packages\PyQt4\pyuic4.bat "{0}" -o "{1}"
 
 Here:
@@ -20,7 +18,7 @@ Here:
 	{1} - Name of the compiled py-file ("_UI.py").
 
 
-	3. Create the main py-file of the application:
+3. Create the main py-file of the application:
 -	Import the file "_UI.py" with QMainWindow.
 -	Create your class as a subclass of two classes: QMainWindow from PySide.QtGui and the class from the compiled py-file.
 -	Add to "\_\_init\_\_" two method calls listed below.
@@ -46,6 +44,7 @@ Example:
 4. Create py-files for dialogs in the same way, as for the main window (except showing them).
 Modal dialogs have a parent (the main window or another dialog), but modeless ones don't.
 Modal dialog:
+
 
 	class SettingsDialogClass(QDialog, ui.Ui_settingsDialog):
 		def __init__(self, parent):
@@ -99,3 +98,4 @@ It is done in the "\_\_init\_\_" method:
 			# Modeless window
 			self.dial = templateEditor.TemplateEditorClass()
 			self.dial.show()
+
