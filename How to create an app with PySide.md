@@ -21,14 +21,19 @@ Here:
 -	Show the main window.
 
 Example:
+
 	class ProjectManagerClass(QMainWindow, ui.Ui_projectManager):
 		def __init__(self):
 			super(ProjectManagerClass, self).__init__()
 			self.setupUi(self)
-
+	
 	if __name__ == '__main__':
 		app = QApplication([])
 		w = ProjectManagerClass()
 		w.show()
 		app.exec_()
 
+
+4. 
+-	Write your own methods.
+-	Connect buttons and other GUI-elements with the methods, that must be called.
