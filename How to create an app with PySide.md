@@ -22,6 +22,9 @@ Here:
 
 Example:
 
+	from PySide.QtGui import *
+	from widgets import projectManager_UI as ui
+	
 	class ProjectManagerClass(QMainWindow, ui.Ui_projectManager):
 		def __init__(self):
 			super(ProjectManagerClass, self).__init__()
