@@ -8,7 +8,6 @@ There is some basic information how to create your application:
 2. Compile ui-files as py-files (I usually add ending "_UI.py" in order to distinguish them from my py-files).
 For PySide and PyQt, respectively:
 
-
 	C:\Python27\Scripts\pyside-uic.exe "{0}" -o "{1}"
 	C:\Python27\Lib\site-packages\PyQt4\pyuic4.bat "{0}" -o "{1}"
 
@@ -83,17 +82,17 @@ It is done in the "\_\_init\_\_" method:
 
 	class ProjectManagerClass(QMainWindow, ui.Ui_projectManager):
 		def __init__(self):
-			super(ProjectManagerClass, self).__init__()
+		super(ProjectManagerClass, self).__init__()
 			self.setupUi(self)
-
+		
 			# connects
 			self.settings_btn.clicked.connect(self.open_settings_dialog)
 			self.templateEditor_btn.clicked.connect(self.open_template_editor_dialog)
-
+		
 		def open_settings_dialog(self):
 			# Modal window
 			self.dial = settingsDialog.SettingsDialogClass(self)
-
+		
 		def open_template_editor_dialog(self):
 			# Modeless window
 			self.dial = templateEditor.TemplateEditorClass()
