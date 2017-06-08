@@ -3,6 +3,7 @@ There is some basic information how to create your application:
 1. Use Qt Designer to create ui-files:
 - QMainWindow - the main window of the application.
 - QDialog - for modal or modeless dialogs.
+- QWidget - also for modal or modeless dialogs, if you don't need standard dialog buttons.
 
 
 2. Compile ui-files as py-files (I usually add ending "_UI.py" in order to distinguish them from my py-files).

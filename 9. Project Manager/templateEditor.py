@@ -10,7 +10,7 @@ import os, json
 templateFile = os.path.join(os.path.dirname(__file__), 'template.json')
 
 
-class TemplateEditorClass(QDialog, ui.Ui_templateEditor):
+class TemplateEditorClass(QWidget, ui.Ui_templateEditor):
     def __init__(self):
         super(TemplateEditorClass, self).__init__()
         self.setupUi(self)
