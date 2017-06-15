@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+from __future__ import unicode_literals
 from PySide.QtGui import *
 from PySide.QtCore import *
 from widgets import templateEditor_UI as ui
@@ -29,6 +30,7 @@ class TemplateEditorClass(QWidget, ui.Ui_templateEditor):
         self.loadTemplate()
 
     def addItem(self, name='Folder', parent=None):
+        name = self.sanitizeItemName(name)
         if not parent:
             parent = self.tree.invisibleRootItem()
         item = QTreeWidgetItem()
@@ -74,3 +76,32 @@ class TemplateEditorClass(QWidget, ui.Ui_templateEditor):
         for i in data:
             item = self.addItem(i['name'], parent)
             self.restoreStructure(i['content'], item)
+
+    def sanitizeItemName(self, name, parent=None):
+        'Names must be unique on the same level and not operating system reserved words'
+        name = self.removeForbiddenSymbols(name)
+        if not parent:
+            parent = self.tree.invisibleRootItem()
+        child_names = []
+        for item in parent.takeChildren():
+            child_names.append(item.text(0))
+        forbidden_names = ['CON', 'PRN', 'AUX', 'NUL', 'COM1', 'COM2', 'COM3', 'COM4', 'COM5',
+                           'COM6', 'COM7', 'COM8', 'COM9', 'LPT1', 'LPT2', 'LPT3', 'LPT4', 'LPT5',
+                           'LPT6', 'LPT7', 'LPT8', 'LPT9']
+        forbidden_names = forbidden_names + child_names
+        while name in forbidden_names:
+            index = 1
+            name += ' (' + str(index) + ')'
+            index += 1
+        return name
+
+    @staticmethod
+    def removeForbiddenSymbols(name):
+        'Letters, numbers and some other symbols allowed'
+        allowed_symbols = '()_-'
+        correct_name = []
+        for char in name:
+            if char.isalpha() or char.isdigit() or char in allowed_symbols:
+                correct_name.append(char)
+        correct_name = ''.join(correct_name)
+        return correct_name
