@@ -80,6 +80,8 @@ class TemplateEditorClass(QWidget, ui.Ui_templateEditor):
     def sanitizeItemName(self, name, parent=None):
         'Names must be unique on the same level and not operating system reserved words'
         name = self.removeForbiddenSymbols(name)
+        if not name:
+            name = 'Folder'
         if not parent:
             parent = self.tree.invisibleRootItem()
         child_names = []
@@ -90,11 +92,15 @@ class TemplateEditorClass(QWidget, ui.Ui_templateEditor):
                            'COM6', 'COM7', 'COM8', 'COM9', 'LPT1', 'LPT2', 'LPT3', 'LPT4', 'LPT5',
                            'LPT6', 'LPT7', 'LPT8', 'LPT9']
         forbidden_names = forbidden_names + child_names
-        while name in forbidden_names:
+        if name not in forbidden_names:
+            return name
+        else:
+            new_name = name
             index = 1
-            name += ' (' + str(index) + ')'
-            index += 1
-        return name
+            while new_name in forbidden_names:
+                new_name = name + ' (' + str(index) + ')'
+                index += 1
+            return new_name
 
     @staticmethod
     def removeForbiddenSymbols(name):
