@@ -83,7 +83,8 @@ class TemplateEditorClass(QWidget, ui.Ui_templateEditor):
         if not parent:
             parent = self.tree.invisibleRootItem()
         child_names = []
-        for item in parent.takeChildren():
+        for child_index in range(parent.childCount()):
+            item = parent.child(child_index)
             child_names.append(item.text(0))
         forbidden_names = ['CON', 'PRN', 'AUX', 'NUL', 'COM1', 'COM2', 'COM3', 'COM4', 'COM5',
                            'COM6', 'COM7', 'COM8', 'COM9', 'LPT1', 'LPT2', 'LPT3', 'LPT4', 'LPT5',
@@ -98,7 +99,8 @@ class TemplateEditorClass(QWidget, ui.Ui_templateEditor):
     @staticmethod
     def removeForbiddenSymbols(name):
         'Letters, numbers and some other symbols allowed'
-        allowed_symbols = '()_-'
+        name = name.strip()
+        allowed_symbols = '()_- '
         correct_name = []
         for char in name:
             if char.isalpha() or char.isdigit() or char in allowed_symbols:
