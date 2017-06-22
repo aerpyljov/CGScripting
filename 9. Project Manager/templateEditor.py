@@ -25,6 +25,7 @@ class TemplateEditorClass(QWidget, ui.Ui_templateEditor):
         self.remove_btn.clicked.connect(self.removeItem)
         self.save_btn.clicked.connect(self.saveTemplate)
         self.close_btn.clicked.connect(self.close)
+        self.tree.itemChanged.connect(self.renameItem)
 
         # start
         self.loadTemplate()
@@ -40,6 +41,13 @@ class TemplateEditorClass(QWidget, ui.Ui_templateEditor):
         parent.addChild(item)
         item.setExpanded(1)
         return item
+
+    def renameItem(self, item):
+        name = item.text(0)
+        name = self.sanitizeItemName(name)
+        self.tree.blockSignals(1)
+        item.setText(0, name)
+        self.tree.blockSignals(0)
 
     def removeItem(self):
         items = self.tree.selectedItems()
