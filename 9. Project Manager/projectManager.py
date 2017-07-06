@@ -18,6 +18,7 @@ class ProjectManagerClass(QMainWindow, ui.Ui_projectManager):
 
         # connects
         self.create_btn.clicked.connect(self.create_project)
+        self.refresh_btn.clicked.connect(self.update_list)
         self.settings_btn.clicked.connect(self.open_settings_dialog)
         self.templateEditor_btn.clicked.connect(self.open_template_editor_dialog)
         self.projectList_lwd.itemClicked.connect(self.show_info)
