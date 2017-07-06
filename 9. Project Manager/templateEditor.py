@@ -85,7 +85,7 @@ class TemplateEditorClass(QWidget, ui.Ui_templateEditor):
             item = self.addItem(i['name'], parent)
             self.restoreStructure(i['content'], item)
 
-    def sanitizeItemName(self, name, parent=None):
+    def sanitizeItemName(self, name, parent=None, renamed_item=None):
         'Names must be unique on the same level and not operating system reserved words'
         name = self.removeForbiddenSymbols(name)
         if not name:
@@ -95,7 +95,8 @@ class TemplateEditorClass(QWidget, ui.Ui_templateEditor):
         child_names = []
         for child_index in range(parent.childCount()):
             item = parent.child(child_index)
-            child_names.append(item.text(0))
+            if item is not renamed_item:
+                child_names.append(item.text(0))
         forbidden_names = ['CON', 'PRN', 'AUX', 'NUL', 'COM1', 'COM2', 'COM3', 'COM4', 'COM5',
                            'COM6', 'COM7', 'COM8', 'COM9', 'LPT1', 'LPT2', 'LPT3', 'LPT4', 'LPT5',
                            'LPT6', 'LPT7', 'LPT8', 'LPT9']
