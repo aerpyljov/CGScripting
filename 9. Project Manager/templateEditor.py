@@ -44,7 +44,7 @@ class TemplateEditorClass(QWidget, ui.Ui_templateEditor):
 
     def renameItem(self, item):
         name = item.text(0)
-        name = self.sanitizeItemName(name)
+        name = self.sanitizeItemName(name, renamed_item=item)
         self.tree.blockSignals(1)
         item.setText(0, name)
         self.tree.blockSignals(0)
