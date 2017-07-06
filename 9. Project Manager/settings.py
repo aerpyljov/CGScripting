@@ -17,7 +17,9 @@ class SettingsClass(object):
     @staticmethod
     def make_default(path):
         def_data = dict(
-            path=''
+            path='',
+            archive='',
+            backup=''
         )
         with open(path, 'w') as f:
             json.dump(def_data, f, indent=4)
