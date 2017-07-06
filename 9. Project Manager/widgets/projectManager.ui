@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>800</width>
-    <height>600</height>
+    <height>593</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -27,12 +27,33 @@
        <property name="orientation">
         <enum>Qt::Horizontal</enum>
        </property>
-       <widget class="QWidget" name="">
+       <widget class="QWidget" name="layoutWidget">
         <layout class="QVBoxLayout" name="verticalLayout">
          <item>
           <widget class="QPushButton" name="create_btn">
            <property name="text">
             <string>Create Project</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="update_btn">
+           <property name="text">
+            <string>Update Project</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="backup_btn">
+           <property name="text">
+            <string>Move to BACKUP</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="archive_btn">
+           <property name="text">
+            <string>Move to ARCHIVE</string>
            </property>
           </widget>
          </item>
@@ -60,6 +81,13 @@
              </widget>
             </item>
            </layout>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="refresh_btn">
+           <property name="text">
+            <string>Refresh</string>
+           </property>
           </widget>
          </item>
          <item>
