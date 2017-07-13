@@ -5,7 +5,7 @@ from __future__ import unicode_literals, print_function
 from PySide.QtGui import *
 from widgets import projectManager_UI as ui, projectListWidget
 import settingsDialog, createProjectDialog, templateEditor, settings, createProject
-import webbrowser
+import os, webbrowser
 
 class ProjectManagerClass(QMainWindow, ui.Ui_projectManager):
     def __init__(self):
@@ -23,6 +23,8 @@ class ProjectManagerClass(QMainWindow, ui.Ui_projectManager):
         self.templateEditor_btn.clicked.connect(self.open_template_editor_dialog)
         self.projectList_lwd.itemClicked.connect(self.show_info)
         self.projectList_lwd.itemDoubleClicked.connect(self.openProject)
+        self.openArchive_btn.clicked.connect(lambda: self.openFolder('archive'))
+        self.openBackup_btn.clicked.connect(lambda: self.openFolder('backup'))
 
         # start
         self.update_list()
@@ -72,6 +74,14 @@ Comment:
         path = item.data(32)
         webbrowser.open(path)
 
+    def openFolder(self, folder):
+        try:
+            path = settings.SettingsClass().load()[folder]
+            if not os.path.exists(path):
+                os.mkdir(path)
+            webbrowser.open(path)
+        except KeyError:
+            pass
 
 if __name__ == '__main__':
     app = QApplication([])
