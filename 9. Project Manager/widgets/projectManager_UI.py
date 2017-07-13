@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'C:\Users\Alexey\Documents\GitHub\CGScripting\9. Project Manager\widgets\projectManager.ui'
 #
-# Created: Thu Jul 06 20:35:51 2017
+# Created: Thu Jul 13 19:09:19 2017
 #      by: pyside-uic 0.2.15 running on PySide 1.2.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -39,12 +39,36 @@ class Ui_projectManager(object):
         self.update_btn = QtGui.QPushButton(self.layoutWidget)
         self.update_btn.setObjectName("update_btn")
         self.verticalLayout.addWidget(self.update_btn)
+        self.line = QtGui.QFrame(self.layoutWidget)
+        self.line.setFrameShape(QtGui.QFrame.HLine)
+        self.line.setFrameShadow(QtGui.QFrame.Sunken)
+        self.line.setObjectName("line")
+        self.verticalLayout.addWidget(self.line)
+        self.horizontalLayout = QtGui.QHBoxLayout()
+        self.horizontalLayout.setObjectName("horizontalLayout")
         self.backup_btn = QtGui.QPushButton(self.layoutWidget)
         self.backup_btn.setObjectName("backup_btn")
-        self.verticalLayout.addWidget(self.backup_btn)
+        self.horizontalLayout.addWidget(self.backup_btn)
+        self.openBackup_btn = QtGui.QPushButton(self.layoutWidget)
+        self.openBackup_btn.setMaximumSize(QtCore.QSize(250, 16777215))
+        self.openBackup_btn.setObjectName("openBackup_btn")
+        self.horizontalLayout.addWidget(self.openBackup_btn)
+        self.verticalLayout.addLayout(self.horizontalLayout)
+        self.line_2 = QtGui.QFrame(self.layoutWidget)
+        self.line_2.setFrameShape(QtGui.QFrame.HLine)
+        self.line_2.setFrameShadow(QtGui.QFrame.Sunken)
+        self.line_2.setObjectName("line_2")
+        self.verticalLayout.addWidget(self.line_2)
+        self.horizontalLayout_2 = QtGui.QHBoxLayout()
+        self.horizontalLayout_2.setObjectName("horizontalLayout_2")
         self.archive_btn = QtGui.QPushButton(self.layoutWidget)
         self.archive_btn.setObjectName("archive_btn")
-        self.verticalLayout.addWidget(self.archive_btn)
+        self.horizontalLayout_2.addWidget(self.archive_btn)
+        self.openArchive_btn = QtGui.QPushButton(self.layoutWidget)
+        self.openArchive_btn.setMaximumSize(QtCore.QSize(250, 16777215))
+        self.openArchive_btn.setObjectName("openArchive_btn")
+        self.horizontalLayout_2.addWidget(self.openArchive_btn)
+        self.verticalLayout.addLayout(self.horizontalLayout_2)
         self.templateEditor_btn = QtGui.QPushButton(self.layoutWidget)
         self.templateEditor_btn.setObjectName("templateEditor_btn")
         self.verticalLayout.addWidget(self.templateEditor_btn)
@@ -74,7 +98,9 @@ class Ui_projectManager(object):
         self.create_btn.setText(QtGui.QApplication.translate("projectManager", "Create Project", None, QtGui.QApplication.UnicodeUTF8))
         self.update_btn.setText(QtGui.QApplication.translate("projectManager", "Update Project", None, QtGui.QApplication.UnicodeUTF8))
         self.backup_btn.setText(QtGui.QApplication.translate("projectManager", "Move to BACKUP", None, QtGui.QApplication.UnicodeUTF8))
+        self.openBackup_btn.setText(QtGui.QApplication.translate("projectManager", "Open", None, QtGui.QApplication.UnicodeUTF8))
         self.archive_btn.setText(QtGui.QApplication.translate("projectManager", "Move to ARCHIVE", None, QtGui.QApplication.UnicodeUTF8))
+        self.openArchive_btn.setText(QtGui.QApplication.translate("projectManager", "Open", None, QtGui.QApplication.UnicodeUTF8))
         self.templateEditor_btn.setText(QtGui.QApplication.translate("projectManager", "Template Editor", None, QtGui.QApplication.UnicodeUTF8))
         self.info_gb.setTitle(QtGui.QApplication.translate("projectManager", "Info", None, QtGui.QApplication.UnicodeUTF8))
         self.info_lb.setText(QtGui.QApplication.translate("projectManager", "TextLabel", None, QtGui.QApplication.UnicodeUTF8))
