@@ -2,10 +2,11 @@
 # -*- coding: utf-8 -*-
 
 from __future__ import unicode_literals, print_function
+import os, webbrowser, shutil
 from PySide.QtGui import *
 from widgets import projectManager_UI as ui, projectListWidget
 import settingsDialog, createProjectDialog, templateEditor, settings, createProject
-import os, webbrowser
+
 
 class ProjectManagerClass(QMainWindow, ui.Ui_projectManager):
     def __init__(self):
@@ -23,6 +24,7 @@ class ProjectManagerClass(QMainWindow, ui.Ui_projectManager):
         self.templateEditor_btn.clicked.connect(self.open_template_editor_dialog)
         self.projectList_lwd.itemClicked.connect(self.show_info)
         self.projectList_lwd.itemDoubleClicked.connect(self.openProject)
+        self.archive_btn.clicked.connect(lambda: self.archiveProject(self.getFocusedProject()))
         self.openArchive_btn.clicked.connect(lambda: self.openFolder('archive'))
         self.openBackup_btn.clicked.connect(lambda: self.openFolder('backup'))
 
@@ -74,6 +76,21 @@ Comment:
         path = item.data(32)
         webbrowser.open(path)
 
+    def getFocusedProject(self):
+        item = self.projectList_lwd.currentItem()
+        return item
+
+    def archiveProject(self, item):
+        old_path = item.data(32)
+        project_name = os.path.split(old_path)[-1]
+        archive_folder = settings.SettingsClass().load()['archive']
+        new_path = os.path.join(archive_folder, project_name)
+        if os.path.exists(new_path):
+            pass
+        else:
+            shutil.move(old_path, new_path)
+        self.update_list()
+
     def openFolder(self, folder):
         try:
             path = settings.SettingsClass().load()[folder]
@@ -82,6 +99,7 @@ Comment:
             webbrowser.open(path)
         except KeyError:
             pass
+
 
 if __name__ == '__main__':
     app = QApplication([])
