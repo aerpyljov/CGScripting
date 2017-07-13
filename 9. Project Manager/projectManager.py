@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 from __future__ import unicode_literals, print_function
-import os, webbrowser, shutil
+import os, webbrowser, shutil, time
 from PySide.QtGui import *
 from widgets import projectManager_UI as ui, projectListWidget
 import settingsDialog, createProjectDialog, templateEditor, settings, createProject
@@ -25,6 +25,7 @@ class ProjectManagerClass(QMainWindow, ui.Ui_projectManager):
         self.projectList_lwd.itemClicked.connect(self.show_info)
         self.projectList_lwd.itemDoubleClicked.connect(self.openProject)
         self.archive_btn.clicked.connect(lambda: self.archiveProject(self.getFocusedProject()))
+        self.backup_btn.clicked.connect(lambda: self.backupProject(self.getFocusedProject()))
         self.openArchive_btn.clicked.connect(lambda: self.openFolder('archive'))
         self.openBackup_btn.clicked.connect(lambda: self.openFolder('backup'))
 
@@ -96,6 +97,23 @@ Comment:
             shutil.move(old_path, new_path)
         self.update_list()
 
+    def backupProject(self, item):
+        if not item:
+            return None
+        old_path = item.data(32)
+        project_name = os.path.split(old_path)[-1]
+        backup_folder = settings.SettingsClass().load()['backup']
+        current_time = time.strftime('%Y-%m-%d_%H-%M-%S')
+        new_path = os.path.join(backup_folder, project_name, current_time)
+        if os.path.exists(new_path):
+            message = QMessageBox()
+            message.setWindowTitle('Cannot Move to Backup')
+            message.setText('There is a folder named "{0}/{1}" in the backup directory.\nPlease, rename the project and try again.'.format(project_name, current_time))
+            message.exec_()
+        else:
+            shutil.copytree(old_path, new_path)
+            time.sleep(1)
+        self.update_list()
 
     def openFolder(self, folder):
         try:
