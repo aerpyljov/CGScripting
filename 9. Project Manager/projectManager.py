@@ -81,15 +81,21 @@ Comment:
         return item
 
     def archiveProject(self, item):
+        if not item:
+            return None
         old_path = item.data(32)
         project_name = os.path.split(old_path)[-1]
         archive_folder = settings.SettingsClass().load()['archive']
         new_path = os.path.join(archive_folder, project_name)
         if os.path.exists(new_path):
-            pass
+            message = QMessageBox()
+            message.setWindowTitle('Cannot Move to Archive')
+            message.setText('There is a project named "{0}" in the archive.\nPlease, rename the project and try again.'.format(project_name))
+            message.exec_()
         else:
             shutil.move(old_path, new_path)
         self.update_list()
+
 
     def openFolder(self, folder):
         try:
