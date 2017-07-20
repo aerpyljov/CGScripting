@@ -6,6 +6,7 @@ import os, webbrowser, shutil, time
 from PySide.QtGui import *
 from widgets import projectManager_UI as ui, projectListWidget
 import settingsDialog, createProjectDialog, templateEditor, settings, createProject
+from zipfolder import zipFolder
 
 
 class ProjectManagerClass(QMainWindow, ui.Ui_projectManager):
@@ -112,6 +113,8 @@ Comment:
             message.exec_()
         else:
             shutil.copytree(old_path, new_path)
+            zipFolder(new_path)
+            shutil.rmtree(new_path, ignore_errors=True)
             time.sleep(1)
         self.update_list()
 
