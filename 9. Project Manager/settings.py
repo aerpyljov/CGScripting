@@ -19,7 +19,8 @@ class SettingsClass(object):
         def_data = dict(
             path='',
             archive='',
-            backup=''
+            backup='',
+            winEncoding='cp1251'
         )
         with open(path, 'w') as f:
             json.dump(def_data, f, indent=4)
