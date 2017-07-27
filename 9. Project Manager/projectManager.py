@@ -2,11 +2,10 @@
 # -*- coding: utf-8 -*-
 
 from __future__ import unicode_literals, print_function
-import os, webbrowser, shutil, time
+import os, webbrowser, shutil, time, subprocess
 from PySide.QtGui import *
 from widgets import projectManager_UI as ui, projectListWidget
-import settingsDialog, createProjectDialog, templateEditor, settings, createProject
-from zipfolder import zipFolder
+import settingsDialog, createProjectDialog, templateEditor, settings, createProject, zipfolder
 
 
 class ProjectManagerClass(QMainWindow, ui.Ui_projectManager):
@@ -103,19 +102,10 @@ Comment:
             return None
         old_path = item.data(32)
         project_name = os.path.split(old_path)[-1]
-        backup_folder = settings.SettingsClass().load()['backup']
         current_time = time.strftime('%Y-%m-%d_%H-%M-%S')
+        backup_folder = settings.SettingsClass().load()['backup']
         new_path = os.path.join(backup_folder, project_name, current_time)
-        if os.path.exists(new_path):
-            message = QMessageBox()
-            message.setWindowTitle('Cannot Move to Backup')
-            message.setText('There is a folder named "{0}/{1}" in the backup directory.\nPlease, rename the project and try again.'.format(project_name, current_time))
-            message.exec_()
-        else:
-            shutil.copytree(old_path, new_path)
-            zipFolder(new_path)
-            shutil.rmtree(new_path, ignore_errors=True)
-            time.sleep(1)
+        zipfolder.zipFolder(old_path, new_path)
         self.update_list()
 
     def openFolder(self, folder):

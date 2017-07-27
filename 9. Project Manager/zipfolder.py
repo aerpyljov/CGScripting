@@ -1,20 +1,17 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-import zipfile
-import os
+import os, sys, subprocess, shutil
 
-def zipFolder(folder):
-    folderRoot, folderName = os.path.split(folder)
-    fileName = folderName + '.zip'
-    zipFile = os.path.join(folderRoot, fileName)
-    zf = zipfile.ZipFile(zipFile, 'w', compression=zipfile.ZIP_DEFLATED, allowZip64=True)
-    for path, dirs, files in os.walk(folder):
-        for f in files:
-            fullPath = os.path.join(path, f)
-            relativePath = os.path.relpath(fullPath, folder)
-            zf.write(fullPath, relativePath)  # File and its name in the archive
-    zf.close()
+def zipFolder(old_path, new_path):
+    if sys.platform == 'win32':
+        archiver_folder = os.path.dirname(os.path.abspath(__file__))
+        archiver = os.path.join(archiver_folder, '7zr.exe')
+        archive_name = new_path + '.7z'
+        subprocess.call([archiver, 'a', '-bd', '-y', archive_name, old_path])
+        subprocess.call([archiver, 'a', '-bd', '-y', archive_name, old_path])
+    else:
+        shutil.make_archive(new_path, 'zip', old_path)
 
 
 
