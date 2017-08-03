@@ -19,6 +19,7 @@ class ProjectManagerClass(QMainWindow, ui.Ui_projectManager):
 
         # connects
         self.create_btn.clicked.connect(self.create_project)
+        self.update_btn.clicked.connect(lambda: self.update_project(self.getFocusedProject()))
         self.refresh_btn.clicked.connect(self.update_list)
         self.settings_btn.clicked.connect(self.open_settings_dialog)
         self.templateEditor_btn.clicked.connect(self.open_template_editor_dialog)
@@ -59,6 +60,10 @@ class ProjectManagerClass(QMainWindow, ui.Ui_projectManager):
             data = self.dial.getDialogData()
             createProject.createProject(data)
             self.update_list()
+
+    def update_project(self, item):
+        project_path = item.data(32)
+        createProject.updateProject(project_path)
 
     def show_info(self, item):
         info = createProject.getProjectInfo(item.data(32))

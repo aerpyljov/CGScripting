@@ -9,7 +9,8 @@ projectFile = '.project'
 
 def mkFolder(path):
     try:
-        os.mkdir(path)
+        if not os.path.exists(path):
+            os.mkdir(path)
         return True
     except:
         return False
@@ -24,6 +25,12 @@ def createProject(data):
         if mkFolder(pPath):
             buildFolders(pPath, template)
         makeProjectFile(pPath, data)
+
+
+def updateProject(project_path):
+    template = json.load(open(templateEditor.templateFile))
+    if mkFolder(project_path):
+        buildFolders(project_path, template)
 
 
 def buildFolders(root, folders):
