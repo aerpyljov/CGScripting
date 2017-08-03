@@ -8,7 +8,6 @@ import settings
 def zipFolder(old_path, new_path):
     if sys.platform == 'win32':
         win_encoding = settings.SettingsClass().load()['winEncoding']
-        old_path = old_path
         archiver_folder = os.path.dirname(os.path.abspath(__file__))
         archiver = os.path.join(archiver_folder, '7zr.exe')
         archive_name = (new_path + '.7z')
