@@ -11,7 +11,10 @@ class widgetMenuClass(QWidget):
         ly.addWidget(self.btn)
         self.line = QLineEdit()
         ly.addWidget(self.line)
-
+        
+        self.btn.setContextMenuPolicy(Qt.CustomContextMenu)
+        self.btn.customContextMenuRequested.connect(self.openMenu)
+        
         self.line.setContextMenuPolicy(Qt.CustomContextMenu)
         self.line.customContextMenuRequested.connect(self.openMenu)
 
