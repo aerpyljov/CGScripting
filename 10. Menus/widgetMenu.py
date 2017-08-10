@@ -1,20 +1,17 @@
 from PySide.QtCore import *
 from PySide.QtGui import *
-
+import button
 textArray = 'Click', 'Press', 'Enter'
 
 class widgetMenuClass(QWidget):
     def __init__(self):
         super(widgetMenuClass, self).__init__()
         ly = QVBoxLayout(self)
-        self.btn = QPushButton('Click')
+        self.btn = button.myButton('Click')
         ly.addWidget(self.btn)
         self.line = QLineEdit()
         ly.addWidget(self.line)
-        
-        self.btn.setContextMenuPolicy(Qt.CustomContextMenu)
-        self.btn.customContextMenuRequested.connect(self.openMenu)
-        
+
         self.line.setContextMenuPolicy(Qt.CustomContextMenu)
         self.line.customContextMenuRequested.connect(self.openMenu)
 
