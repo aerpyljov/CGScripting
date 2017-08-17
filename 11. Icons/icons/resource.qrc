@@ -1,0 +1,13 @@
+<RCC>
+	<qresource>
+		<file>item2.png</file>
+		<file>item3.png</file>
+		<file>open.png</file>
+		<file>save.png</file>
+		<file>sphere.png</file>
+		<file>clear.png</file>
+		<file>close.png</file>
+		<file>create.png</file>
+		<file>item1.png</file>
+	</qresource>
+</RCC>
