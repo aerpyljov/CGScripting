@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 from PySide.QtGui import *
+from PySide import QtCore
 from widgets import settingsDialog_UI as ui
 import settings
 
@@ -14,7 +15,8 @@ class SettingsDialogClass(QDialog, ui.Ui_settingsDialog):
         # ui
         self.table.setColumnCount(2)
         self.setWindowIcon(QIcon(':/ico32/setting.png'))
-
+        self.setWindowFlags(self.windowFlags() ^ QtCore.Qt.WindowContextHelpButtonHint)
+        
         # start
         self.fill_table()
 

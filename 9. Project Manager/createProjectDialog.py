@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 from PySide.QtGui import *
+from PySide import QtCore
 from widgets import createProject_UI as ui
 
 
@@ -12,6 +13,7 @@ class CreateProjectDialogClass(QDialog, ui.Ui_createDialog):
 
         # ui
         self.setWindowIcon(QIcon(':/ico32/createproject.png'))
+        self.setWindowFlags(self.windowFlags() ^ QtCore.Qt.WindowContextHelpButtonHint)
 
         # connects
         self.create_btn.clicked.connect(self.doCreate)
