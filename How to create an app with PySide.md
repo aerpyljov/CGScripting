@@ -103,3 +103,11 @@ class ProjectManagerClass(QMainWindow, ui.Ui_projectManager):
 		self.dial = templateEditor.TemplateEditorClass()
 		self.dial.show()
 ```
+
+8. Create a resource file with icons:
+-	Create a folder with icons (PNG-files).
+-	When editing a widget, e.g. QMainWindow, click View-Resource Browser.
+-	Create a new resource file, add prefixes (categories) in it and icons in the prefixes. Save the file (QRC-file).
+-	Compile it using "C:\Python27\Lib\site-packages\PySide\pyside-rcc.exe" (pyside-rcc.exe, QRC-file, "-o", PY-file).
+
+9. Import the PY-file with resources and set the icons for buttons and so on.
