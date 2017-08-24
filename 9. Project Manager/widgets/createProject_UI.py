@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'C:\Users\Alexey\Documents\GitHub\CGScripting\9. Project Manager\widgets\createProject.ui'
 #
-# Created: Thu May 04 20:59:38 2017
+# Created: Thu Aug 24 19:59:55 2017
 #      by: pyside-uic 0.2.15 running on PySide 1.2.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -46,7 +46,7 @@ class Ui_createDialog(object):
         QtCore.QMetaObject.connectSlotsByName(createDialog)
 
     def retranslateUi(self, createDialog):
-        createDialog.setWindowTitle(QtGui.QApplication.translate("createDialog", "Dialog", None, QtGui.QApplication.UnicodeUTF8))
+        createDialog.setWindowTitle(QtGui.QApplication.translate("createDialog", "Create Project", None, QtGui.QApplication.UnicodeUTF8))
         self.name_lb.setText(QtGui.QApplication.translate("createDialog", "Name", None, QtGui.QApplication.UnicodeUTF8))
         self.comment_lb.setText(QtGui.QApplication.translate("createDialog", "Comment", None, QtGui.QApplication.UnicodeUTF8))
         self.create_btn.setText(QtGui.QApplication.translate("createDialog", "Create", None, QtGui.QApplication.UnicodeUTF8))

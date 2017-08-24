@@ -5,6 +5,7 @@ from __future__ import unicode_literals, print_function
 import os, webbrowser, shutil, time, subprocess
 from PySide.QtGui import *
 from widgets import projectManager_UI as ui, projectListWidget
+from icons import resources
 import settingsDialog, createProjectDialog, templateEditor, settings, createProject, zipfolder
 
 
@@ -16,6 +17,20 @@ class ProjectManagerClass(QMainWindow, ui.Ui_projectManager):
         # widgets
         self.projectList_lwd = projectListWidget.ProjectListClass()
         self.projectList_ly.addWidget(self.projectList_lwd)
+
+        # ui
+        self.setWindowIcon(QIcon(':/ico32/appicon.png'))
+        self.create_btn.setIcon(QIcon(':/ico32/createproject.png'))
+        self.update_btn.setIcon(QIcon(':/ico32/updateproject.png'))
+        self.backup_btn.setIcon(QIcon(':/ico32/movebackup.png'))
+        self.archive_btn.setIcon(QIcon(':/ico32/movearchive.png'))
+        self.openBackup_btn.setIcon(QIcon(':/ico32/openfolder.png'))
+        self.openBackup_btn.setText('')
+        self.openArchive_btn.setIcon(QIcon(':/ico32/openfolder.png'))
+        self.openArchive_btn.setText('')
+        self.refresh_btn.setIcon(QIcon(':/ico32/refresh.png'))
+        self.settings_btn.setIcon(QIcon(':/ico32/setting.png'))
+        self.templateEditor_btn.setIcon(QIcon(':/ico32/templateeditor.png'))
 
         # connects
         self.create_btn.clicked.connect(self.create_project)

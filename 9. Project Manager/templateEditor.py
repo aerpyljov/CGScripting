@@ -19,6 +19,9 @@ class TemplateEditorClass(QWidget, ui.Ui_templateEditor):
         #ui
         self.tree.setDragDropMode(QAbstractItemView.InternalMove)
         self.tree.setSelectionMode(QAbstractItemView.ExtendedSelection)
+        self.setWindowIcon(QIcon(':/ico32/templateeditor.png'))
+        self.add_btn.setIcon(QIcon(':/ico16/addfolder.png'))
+        self.remove_btn.setIcon(QIcon(':/ico16/delfolder.png'))
 
         # connects
         self.add_btn.clicked.connect(self.addItem)

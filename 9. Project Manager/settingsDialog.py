@@ -13,6 +13,7 @@ class SettingsDialogClass(QDialog, ui.Ui_settingsDialog):
 
         # ui
         self.table.setColumnCount(2)
+        self.setWindowIcon(QIcon(':/ico32/setting.png'))
 
         # start
         self.fill_table()

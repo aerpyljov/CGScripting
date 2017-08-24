@@ -9,6 +9,10 @@ class CreateProjectDialogClass(QDialog, ui.Ui_createDialog):
     def __init__(self, parent):
         super(CreateProjectDialogClass, self).__init__(parent)
         self.setupUi(self)
+
+        # ui
+        self.setWindowIcon(QIcon(':/ico32/createproject.png'))
+
         # connects
         self.create_btn.clicked.connect(self.doCreate)
         self.cancel_btn.clicked.connect(self.reject)

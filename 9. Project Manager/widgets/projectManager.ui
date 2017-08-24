@@ -61,9 +61,15 @@
            </item>
            <item>
             <widget class="QPushButton" name="openBackup_btn">
+             <property name="minimumSize">
+              <size>
+               <width>40</width>
+               <height>0</height>
+              </size>
+             </property>
              <property name="maximumSize">
               <size>
-               <width>250</width>
+               <width>40</width>
                <height>16777215</height>
               </size>
              </property>
@@ -92,9 +98,15 @@
            </item>
            <item>
             <widget class="QPushButton" name="openArchive_btn">
+             <property name="minimumSize">
+              <size>
+               <width>40</width>
+               <height>0</height>
+              </size>
+             </property>
              <property name="maximumSize">
               <size>
-               <width>250</width>
+               <width>40</width>
                <height>16777215</height>
               </size>
              </property>
@@ -153,8 +165,6 @@
    </layout>
   </widget>
  </widget>
- <resources>
-  <include location="../icons/resources.qrc"/>
- </resources>
+ <resources/>
  <connections/>
 </ui>

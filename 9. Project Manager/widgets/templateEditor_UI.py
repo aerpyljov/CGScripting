@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'C:\Users\Alexey\Documents\GitHub\CGScripting\9. Project Manager\widgets\templateEditor.ui'
 #
-# Created: Thu May 11 19:25:50 2017
+# Created: Thu Aug 24 19:59:51 2017
 #      by: pyside-uic 0.2.15 running on PySide 1.2.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -25,6 +25,7 @@ class Ui_templateEditor(object):
         font.setWeight(75)
         font.setBold(True)
         self.add_btn.setFont(font)
+        self.add_btn.setText("")
         self.add_btn.setObjectName("add_btn")
         self.horizontalLayout_2.addWidget(self.add_btn)
         self.remove_btn = QtGui.QPushButton(templateEditor)
@@ -35,6 +36,7 @@ class Ui_templateEditor(object):
         font.setWeight(75)
         font.setBold(True)
         self.remove_btn.setFont(font)
+        self.remove_btn.setText("")
         self.remove_btn.setObjectName("remove_btn")
         self.horizontalLayout_2.addWidget(self.remove_btn)
         spacerItem = QtGui.QSpacerItem(40, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
@@ -60,8 +62,6 @@ class Ui_templateEditor(object):
 
     def retranslateUi(self, templateEditor):
         templateEditor.setWindowTitle(QtGui.QApplication.translate("templateEditor", "Template Editor", None, QtGui.QApplication.UnicodeUTF8))
-        self.add_btn.setText(QtGui.QApplication.translate("templateEditor", "+", None, QtGui.QApplication.UnicodeUTF8))
-        self.remove_btn.setText(QtGui.QApplication.translate("templateEditor", "-", None, QtGui.QApplication.UnicodeUTF8))
         self.save_btn.setText(QtGui.QApplication.translate("templateEditor", "Save", None, QtGui.QApplication.UnicodeUTF8))
         self.close_btn.setText(QtGui.QApplication.translate("templateEditor", "Close", None, QtGui.QApplication.UnicodeUTF8))
 

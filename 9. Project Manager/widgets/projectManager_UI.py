@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'C:\Users\Alexey\Documents\GitHub\CGScripting\9. Project Manager\widgets\projectManager.ui'
 #
-# Created: Thu Jul 13 19:09:19 2017
+# Created: Thu Aug 24 20:20:38 2017
 #      by: pyside-uic 0.2.15 running on PySide 1.2.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -50,7 +50,8 @@ class Ui_projectManager(object):
         self.backup_btn.setObjectName("backup_btn")
         self.horizontalLayout.addWidget(self.backup_btn)
         self.openBackup_btn = QtGui.QPushButton(self.layoutWidget)
-        self.openBackup_btn.setMaximumSize(QtCore.QSize(250, 16777215))
+        self.openBackup_btn.setMinimumSize(QtCore.QSize(40, 0))
+        self.openBackup_btn.setMaximumSize(QtCore.QSize(40, 16777215))
         self.openBackup_btn.setObjectName("openBackup_btn")
         self.horizontalLayout.addWidget(self.openBackup_btn)
         self.verticalLayout.addLayout(self.horizontalLayout)
@@ -65,7 +66,8 @@ class Ui_projectManager(object):
         self.archive_btn.setObjectName("archive_btn")
         self.horizontalLayout_2.addWidget(self.archive_btn)
         self.openArchive_btn = QtGui.QPushButton(self.layoutWidget)
-        self.openArchive_btn.setMaximumSize(QtCore.QSize(250, 16777215))
+        self.openArchive_btn.setMinimumSize(QtCore.QSize(40, 0))
+        self.openArchive_btn.setMaximumSize(QtCore.QSize(40, 16777215))
         self.openArchive_btn.setObjectName("openArchive_btn")
         self.horizontalLayout_2.addWidget(self.openArchive_btn)
         self.verticalLayout.addLayout(self.horizontalLayout_2)

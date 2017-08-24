@@ -4,8 +4,7 @@ There is some basic information how to create your application:
 - QMainWindow - the main window of the application.
 - QDialog - for modal or modeless dialogs.
 - QWidget - also for modal or modeless dialogs, if you don't need standard dialog buttons.
-
-
+  
 2. Compile ui-files as py-files (I usually add ending "_UI.py" in order to distinguish them from my py-files).
 For PySide and PyQt, respectively:
 
@@ -15,8 +14,7 @@ C:\Python27\Lib\site-packages\PyQt4\pyuic4.bat "{0}" -o "{1}"
 ```
 
 Here {0} and {1} - names of the ui-file and the compiled py-file ("_UI.py"), respectively.
-
-
+  
 3. Create the main py-file of the application:
 -	Import the file "_UI.py" with QMainWindow.
 -	Create your class as a subclass of two classes: QMainWindow from PySide.QtGui and the class from the compiled py-file.
@@ -40,7 +38,7 @@ if __name__ == '__main__':
 	w.show()
 	app.exec_()
 ```
-
+  
 4. Create py-files for dialogs in the same way as for the main window (except showing them).
 Modal dialogs have a parent (the main window or another dialog), but modeless ones don't.
 Modal dialog:
@@ -60,7 +58,7 @@ class TemplateEditorClass(QDialog, ui.Ui_templateEditor):
 		super(TemplateEditorClass, self).__init__()
 		self.setupUi(self)
 ```
-
+  
 5. Create py-files for complex widgets, that will be added on the main window or a dialog window in your code.
 It is useful, if the widgets have a lot of related methods.
 The code is similar to dialogs, but without calling "self.setupUi(self)" in "\_\_init\_\_", plus you usually don't have a ui-file for them:
@@ -70,7 +68,7 @@ class ProjectListClass(QListWidget):
 	def __init__(self):
 		super(ProjectListClass, self).__init__()
 ```
-
+  
 6. Add your complex widgets on the main window and the dialogs where necessary (you should have a layout for them).
 It is done in the "\_\_init\_\_" method:
 
@@ -78,7 +76,7 @@ It is done in the "\_\_init\_\_" method:
 self.projectList_lwd = projectListWidget.ProjectListClass()
 self.projectList_ly.addWidget(self.projectList_lwd)
 ```
-
+  
 7. Make the application work by editing the main window and all dialog py-files:
 -	Write your own methods.
 -	Connect buttons and other GUI-elements with the methods, that must be called.
@@ -103,11 +101,15 @@ class ProjectManagerClass(QMainWindow, ui.Ui_projectManager):
 		self.dial = templateEditor.TemplateEditorClass()
 		self.dial.show()
 ```
-
+  
 8. Create a resource file with icons:
 -	Create a folder with icons (PNG-files).
 -	When editing a widget, e.g. QMainWindow, click View-Resource Browser.
 -	Create a new resource file, add prefixes (categories) in it and icons in the prefixes. Save the file (QRC-file).
 -	Compile it using "C:\Python27\Lib\site-packages\PySide\pyside-rcc.exe" (pyside-rcc.exe, QRC-file, "-o", PY-file).
-
-9. Import the PY-file with resources and set the icons for buttons and so on.
+  
+9. Import the PY-file with resources and set the icons for buttons and so on. Examples (in the "\_\_init\_\_" method):
+```python
+	self.setWindowIcon(QIcon(':/ico32/appicon.png'))
+	self.create_btn.setIcon(QIcon(':/ico32/createproject.png'))
+```
