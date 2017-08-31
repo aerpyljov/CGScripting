@@ -14,6 +14,7 @@ class SettingsDialogClass(QDialog, ui.Ui_settingsDialog):
 
         # ui
         self.table.setColumnCount(2)
+        self.table.horizontalHeader().setStretchLastSection(1)
         self.setWindowIcon(QIcon(':/ico32/setting.png'))
         self.setWindowFlags(self.windowFlags() ^ QtCore.Qt.WindowContextHelpButtonHint)
         
