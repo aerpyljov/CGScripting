@@ -113,3 +113,22 @@ class ProjectManagerClass(QMainWindow, ui.Ui_projectManager):
 	self.setWindowIcon(QIcon(':/ico32/appicon.png'))
 	self.create_btn.setIcon(QIcon(':/ico32/createproject.png'))
 ```
+
+10. Context menus for widgets are added in the following way:
+-	For a widget, where you want to get a menu, call setContextMenuPolicy(Qt.CustomContextMenu).
+-	For the same widget add a connect for a customContextMenuRequested signal to a method creatind a menu.
+-	Add a method creating QMenu. Fill the menu, using addAction with QAction.
+-	In the same method define a position for the menu to open and execute the menu.  
+
+```python
+	def __init__(self):
+		self.projectList_lwd.setContextMenuPolicy(Qt.CustomContextMenu)
+		self.projectList_lwd.customContextMenuRequested.connect(self.openProjectMenu)
+	def openProjectMenu(self, pos):
+		pos = self.sender().mapToGlobal(pos)
+		menu = QMenu()
+		act_update_project = QAction('Update Project', self,
+									triggered=(lambda: self.update_project(self.getFocusedProject())))
+		menu.addAction(act_update_project)
+		menu.exec_(pos)
+```

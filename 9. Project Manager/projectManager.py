@@ -2,7 +2,8 @@
 # -*- coding: utf-8 -*-
 
 from __future__ import unicode_literals, print_function
-import os, webbrowser, shutil, time, subprocess
+import os, webbrowser, shutil, time
+from PySide.QtCore import *
 from PySide.QtGui import *
 from widgets import projectManager_UI as ui, projectListWidget
 from icons import resources
@@ -19,6 +20,7 @@ class ProjectManagerClass(QMainWindow, ui.Ui_projectManager):
         self.projectList_ly.addWidget(self.projectList_lwd)
 
         # ui
+        self.projectList_lwd.setContextMenuPolicy(Qt.CustomContextMenu)
         self.setWindowIcon(QIcon(':/ico32/appicon.png'))
         self.create_btn.setIcon(QIcon(':/ico32/createproject.png'))
         self.update_btn.setIcon(QIcon(':/ico32/updateproject.png'))
@@ -33,6 +35,7 @@ class ProjectManagerClass(QMainWindow, ui.Ui_projectManager):
         self.templateEditor_btn.setIcon(QIcon(':/ico32/templateeditor.png'))
 
         # connects
+        self.projectList_lwd.customContextMenuRequested.connect(self.openProjectMenu)
         self.create_btn.clicked.connect(self.create_project)
         self.update_btn.clicked.connect(lambda: self.update_project(self.getFocusedProject()))
         self.refresh_btn.clicked.connect(self.update_list)
@@ -54,6 +57,8 @@ class ProjectManagerClass(QMainWindow, ui.Ui_projectManager):
             self.create_btn.setEnabled(0)
         else:
             self.create_btn.setEnabled(1)
+            item = self.projectList_lwd.item(0)
+            self.projectList_lwd.setCurrentItem(item)
 
     def open_settings_dialog(self):
         # Modal window
@@ -136,6 +141,30 @@ Comment:
             webbrowser.open(path)
         except KeyError:
             pass
+
+    def openProjectMenu(self, pos):
+        pos = self.sender().mapToGlobal(pos)
+        menu = QMenu()
+        # Prepare actions for the menu
+        act_create_project = QAction('Create Project', self,
+                                     triggered=self.create_project)
+        act_update_project = QAction('Update Project', self,
+                                     triggered=(lambda: self.update_project(self.getFocusedProject())))
+        act_backup = QAction('Move to BACKUP', self,
+                             triggered=(lambda: self.backupProject(self.getFocusedProject())))
+        act_archive = QAction('Move to ARCHIVE', self,
+                             triggered=(lambda: self.archiveProject(self.getFocusedProject())))
+        act_refresh = QAction('Refresh', self, triggered=self.update_list)
+        # Fill the menu
+        menu.addAction(act_create_project)
+        if self.getFocusedProject():
+            menu.addSeparator()
+            menu.addAction(act_update_project)
+            menu.addAction(act_backup)
+            menu.addAction(act_archive)
+        menu.addSeparator()
+        menu.addAction(act_refresh)
+        menu.exec_(pos)
 
 
 if __name__ == '__main__':
