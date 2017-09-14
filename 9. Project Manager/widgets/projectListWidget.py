@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 from PySide.QtGui import *
+from PySide.QtCore import *
 import settings, createProject
 import os
 
@@ -9,6 +10,10 @@ import os
 class ProjectListClass(QListWidget):
     def __init__(self):
         super(ProjectListClass, self).__init__()
+
+        # ui
+        self.sortItems(Qt.AscendingOrder)
+        self.setSortingEnabled(True)
 
     def update_project_list(self):
         self.clear()
