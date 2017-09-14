@@ -20,6 +20,8 @@ class ProjectManagerClass(QMainWindow, ui.Ui_projectManager):
         self.projectList_ly.addWidget(self.projectList_lwd)
 
         # ui
+        self.projectList_lwd.setDragDropMode(QAbstractItemView.DragDrop)
+        self.projectList_lwd.setDefaultDropAction(Qt.MoveAction)
         self.projectList_lwd.setContextMenuPolicy(Qt.CustomContextMenu)
         self.setWindowIcon(QIcon(':/ico32/appicon.png'))
         self.create_btn.setIcon(QIcon(':/ico32/createproject.png'))
@@ -165,6 +167,10 @@ Comment:
         menu.addSeparator()
         menu.addAction(act_refresh)
         menu.exec_(pos)
+
+    def dropEvent(self, event):  # TODO: intercept drop event
+        print('HELP')
+        self.update_list()
 
 
 if __name__ == '__main__':
