@@ -38,6 +38,7 @@ class ProjectManagerClass(QMainWindow, ui.Ui_projectManager):
 
         # connects
         self.projectList_lwd.customContextMenuRequested.connect(self.openProjectMenu)
+        self.projectList_lwd.drop_notifier.itemDropped.connect(self.dropEvent)
         self.create_btn.clicked.connect(self.create_project)
         self.update_btn.clicked.connect(lambda: self.update_project(self.getFocusedProject()))
         self.refresh_btn.clicked.connect(self.update_list)

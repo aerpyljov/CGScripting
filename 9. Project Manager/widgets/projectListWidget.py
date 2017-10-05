@@ -7,9 +7,17 @@ import settings, createProject
 import os
 
 
+class DropNotifier(QObject):
+    itemDropped = Signal()
+
+    def __init__(self):
+        QObject.__init__(self)
+
+
 class ProjectListClass(QListWidget):
     def __init__(self):
         super(ProjectListClass, self).__init__()
+        self.drop_notifier = DropNotifier()
 
         # ui
         self.sortItems(Qt.AscendingOrder)
@@ -39,3 +47,6 @@ class ProjectListClass(QListWidget):
         self.addItem(item)
         return item
 
+    def dropEvent(self, event):
+        print "Hi"
+        self.drop_notifier.emit(event)
