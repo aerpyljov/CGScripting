@@ -13,6 +13,9 @@ class DropNotifier(QObject):
     def __init__(self):
         QObject.__init__(self)
 
+    def emit_signal(self, event):
+        print "emitting"
+        self.itemDropped.emit(event)
 
 class ProjectListClass(QListWidget):
     def __init__(self):
@@ -49,4 +52,4 @@ class ProjectListClass(QListWidget):
 
     def dropEvent(self, event):
         print "Hi"
-        self.drop_notifier.emit(event)
+        self.drop_notifier.emit_signal(event)
