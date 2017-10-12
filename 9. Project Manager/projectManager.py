@@ -170,7 +170,7 @@ Comment:
         menu.exec_(pos)
 
     def dropEvent(self, event):  # TODO: intercept drop event
-        print('HELP')
+        print('Got event', self)
         self.update_list()
 
 
