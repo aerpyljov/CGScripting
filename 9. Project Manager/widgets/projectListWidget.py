@@ -43,3 +43,25 @@ class ProjectListClass(QListWidget):
 
     def dropEvent(self, event):
         self.itemDroppedSignal.emit(event)
+
+    def dragEnterEvent(self, event):
+        """Called when the cursor gets to the area first"""
+        if event.source() is self:  # Forbid dropping on the same widget
+            event.ignore()
+        else:
+            mimedata = event.mimeData()
+            if mimedata.hasUrls():
+                event.accept()
+            else:
+                event.ignore()
+
+    def dragMoveEvent(self, event):
+        """Called many times while the cursor moving"""
+        if event.source() is self:  # Forbid dropping on the same widget
+            event.ignore()
+        else:
+            mimedata = event.mimeData()
+            if mimedata.hasUrls():  # How does the cursor look?
+                event.accept()
+            else:
+                event.ignore()

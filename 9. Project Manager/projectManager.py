@@ -169,9 +169,25 @@ Comment:
         menu.addAction(act_refresh)
         menu.exec_(pos)
 
-    def dropEvent(self, event):  # TODO: intercept drop event
-        print('Got event', self)
+    def dropEvent(self, event):
+        "Copy dropped folders as projects"
+        mimedata = event.mimeData()
+        if mimedata.hasUrls():
+            for url in mimedata.urls():
+                orig_path = url.toLocalFile()
+                if os.path.isdir(orig_path):
+                    # Copy folder
+                    folder_name = os.path.basename(orig_path)
+                    project_folder = settings.SettingsClass().load()['path']
+                    new_path = os.path.join(project_folder, folder_name)
+                    if not os.path.exists(new_path):
+                        shutil.copytree(orig_path, new_path)
+                        project_data = dict(name=folder_name, comment='')
+                        createProject.makeProjectFile(new_path, project_data)
         self.update_list()
+
+
+
 
 
 if __name__ == '__main__':

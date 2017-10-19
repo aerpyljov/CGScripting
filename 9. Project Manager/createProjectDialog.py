@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+from __future__ import unicode_literals
 from PySide.QtGui import *
 from PySide import QtCore
 from widgets import createProject_UI as ui
