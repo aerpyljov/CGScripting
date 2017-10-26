@@ -21,7 +21,6 @@ class ProjectManagerClass(QMainWindow, ui.Ui_projectManager):
 
         # ui
         self.projectList_lwd.setDragDropMode(QAbstractItemView.DragDrop)
-        self.projectList_lwd.setDefaultDropAction(Qt.MoveAction)
         self.projectList_lwd.setContextMenuPolicy(Qt.CustomContextMenu)
         self.setWindowIcon(QIcon(':/ico32/appicon.png'))
         self.create_btn.setIcon(QIcon(':/ico32/createproject.png'))
@@ -39,6 +38,7 @@ class ProjectManagerClass(QMainWindow, ui.Ui_projectManager):
         # connects
         self.projectList_lwd.customContextMenuRequested.connect(self.openProjectMenu)
         self.projectList_lwd.itemDroppedSignal.connect(self.dropEvent)
+        self.projectList_lwd.itemDraggedSignal.connect(self.startDrag)
         self.create_btn.clicked.connect(self.create_project)
         self.update_btn.clicked.connect(lambda: self.update_project(self.getFocusedProject()))
         self.refresh_btn.clicked.connect(self.update_list)
@@ -170,7 +170,7 @@ Comment:
         menu.exec_(pos)
 
     def dropEvent(self, event):
-        "Copy dropped folders as projects"
+        """Copy dropped folders as projects"""
         mimedata = event.mimeData()
         if mimedata.hasUrls():
             for url in mimedata.urls():
@@ -186,8 +186,17 @@ Comment:
                         createProject.makeProjectFile(new_path, project_data)
         self.update_list()
 
-
-
+    def startDrag(self, dropAction):
+        drag = QDrag(self)
+        mimedata = QMimeData()
+        current_item = self.getFocusedProject()
+        project_path = current_item.data(32)
+        urls = []
+        urls.append(QUrl.fromLocalFile(project_path))
+        mimedata.setUrls(urls)
+        drag.setMimeData(mimedata)
+        drag.exec_()
+        self.update_list()
 
 
 if __name__ == '__main__':

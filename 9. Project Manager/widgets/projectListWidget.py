@@ -10,6 +10,7 @@ import os
 class ProjectListClass(QListWidget):
 
     itemDroppedSignal = Signal(object)
+    itemDraggedSignal = Signal(object)
 
     def __init__(self):
         super(ProjectListClass, self).__init__()
@@ -43,6 +44,9 @@ class ProjectListClass(QListWidget):
 
     def dropEvent(self, event):
         self.itemDroppedSignal.emit(event)
+
+    def startDrag(self, dropAction):
+        self.itemDraggedSignal.emit(dropAction)
 
     def dragEnterEvent(self, event):
         """Called when the cursor gets to the area first"""
