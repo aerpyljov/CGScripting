@@ -7,7 +7,12 @@ The main use cases of the application:
 - Display the list of projects with their descriptions.
 - Open project folders.
 - Customize the project template (subfolders names and nested structure).
-- Change the app settings (the root folder for all project folders).
+- Create new projects using the template.
+- Update existing projects using the template (add new subfolders).
+- Backup projects (using 7z or ZIP archives)
+- Move projects to Archive folder.
+- Create new projects as copies of existing folders by drag'n'drop.
+- Move projects to another folder using drag'n'drop.
 
 
 NB: Pay attention, that you need to install PySide first:  
