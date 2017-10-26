@@ -132,3 +132,15 @@ class ProjectManagerClass(QMainWindow, ui.Ui_projectManager):
 		menu.addAction(act_update_project)
 		menu.exec_(pos)
 ```
+
+11. Drag'n'drop enabled for a widget in the following way:  
+-	setDragDropMode(QAbstractItemView.DragDrop)
+-	Special methods: dropEvent, startDrag, dragEnterEvent, dragMoveEvent
+
+12. If you need to transfer a signal from an embedded widget, do the following:
+-	Create a custom signal: "mySignal = Signal(object)" before "\_\_init\_\_" method.
+-	Emit the custom signal with any arguments: "self.mySignal.emit(arg)"
+-	In the enclosing widget connect the signal to a method you want: "self.enclosedWidget.mySignal.connect(self.myMethod)"
+
+
+
