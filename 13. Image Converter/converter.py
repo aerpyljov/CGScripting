@@ -15,6 +15,3 @@ def convert(src, trg=None):
     else:
         trg = os.path.splitext(src)[0] + '.png'
     subprocess.Popen([imageMagick, src, trg])
-
-
-convert(r"C:\Users\Alexey\Pictures\ship.jpg")
