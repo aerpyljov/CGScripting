@@ -1,10 +1,10 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from PySide.QtCore import *
 from PySide.QtGui import *
 from widgets import imageConverter_UI as ui, filesWidget
 import converter
+from icons import resources
 
 class ImageConverterClass(QMainWindow, ui.Ui_imageConverter):
     def __init__(self):
@@ -14,6 +14,9 @@ class ImageConverterClass(QMainWindow, ui.Ui_imageConverter):
         # widgets
         self.list = filesWidget.listWidgetClass()
         self.files_ly.addWidget(self.list)
+
+        # icons
+        self.setWindowIcon(QIcon(':/ico32/appicon.png'))
 
         # connects
         self.start_btn.clicked.connect(self.start)
