@@ -3,8 +3,9 @@
 
 from PySide.QtGui import *
 from widgets import imageConverter_UI as ui, filesWidget
-import converter
+import converter, settings
 from icons import resources
+
 
 class ImageConverterClass(QMainWindow, ui.Ui_imageConverter):
     def __init__(self):
