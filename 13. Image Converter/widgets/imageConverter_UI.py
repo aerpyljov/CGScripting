@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'C:\Users\Alexey\Documents\GitHub\CGScripting\13. Image Converter\widgets\imageConverter.ui'
 #
-# Created: Thu Jan 11 19:52:08 2018
+# Created: Thu Jan 11 20:18:09 2018
 #      by: pyside-uic 0.2.15 running on PySide 1.2.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -147,7 +147,7 @@ class Ui_imageConverter(object):
         self.formatOut_cbox.setItemText(2, QtGui.QApplication.translate("imageConverter", "TIFF", None, QtGui.QApplication.UnicodeUTF8))
         self.formatOut_cbox.setItemText(3, QtGui.QApplication.translate("imageConverter", "ICO", None, QtGui.QApplication.UnicodeUTF8))
         self.formatOut_cbox.setItemText(4, QtGui.QApplication.translate("imageConverter", "SVG", None, QtGui.QApplication.UnicodeUTF8))
-        self.label.setText(QtGui.QApplication.translate("imageConverter", "Name collision resolving:", None, QtGui.QApplication.UnicodeUTF8))
+        self.label.setText(QtGui.QApplication.translate("imageConverter", "Name collision resolution:", None, QtGui.QApplication.UnicodeUTF8))
         self.replace_rbtn.setText(QtGui.QApplication.translate("imageConverter", "Replace", None, QtGui.QApplication.UnicodeUTF8))
         self.skip_rbtn.setText(QtGui.QApplication.translate("imageConverter", "Skip", None, QtGui.QApplication.UnicodeUTF8))
         self.start_btn.setText(QtGui.QApplication.translate("imageConverter", "Start", None, QtGui.QApplication.UnicodeUTF8))

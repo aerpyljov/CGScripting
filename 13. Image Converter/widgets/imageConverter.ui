@@ -216,7 +216,7 @@
          <item>
           <widget class="QLabel" name="label">
            <property name="text">
-            <string>Name collision resolving:</string>
+            <string>Name collision resolution:</string>
            </property>
           </widget>
          </item>
