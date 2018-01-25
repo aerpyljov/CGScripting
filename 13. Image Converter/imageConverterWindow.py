@@ -58,6 +58,7 @@ class ImageConverterClass(QMainWindow, ui.Ui_imageConverter):
 
     def clear_destination_folder(self):
         self.out_le.setText('')
+        # TODO: save to settings
 
 if __name__ == '__main__':
     app = QApplication([])
