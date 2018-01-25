@@ -21,6 +21,7 @@ class ImageConverterClass(QMainWindow, ui.Ui_imageConverter):
 
         # connects
         self.start_btn.clicked.connect(self.start)
+        self.browseImagemagick_btn.clicked.connect(self.select_exe)
 
     def start(self):
         files = self.list.getAllFiles()
@@ -32,6 +33,14 @@ class ImageConverterClass(QMainWindow, ui.Ui_imageConverter):
                 self.progressBar.setValue(self.progressBar.value() + inc)
         self.progressBar.setValue(0)
 
+
+    def select_exe(self):
+        dialog = QFileDialog()
+        filename, used_filter = dialog.getOpenFileName(caption="Select magick.exe file",
+                                filter="magick.exe", option=dialog.DontUseNativeDialog)
+        if filename:
+            self.imagemagick_lb.setText(filename)
+        #TODO: save to settings
 
 if __name__ == '__main__':
     app = QApplication([])
