@@ -22,6 +22,8 @@ class ImageConverterClass(QMainWindow, ui.Ui_imageConverter):
         # connects
         self.start_btn.clicked.connect(self.start)
         self.browseImagemagick_btn.clicked.connect(self.select_exe)
+        self.browseOut_btn.clicked.connect(self.select_destination_folder)
+        self.clearOut_btn.clicked.connect(self.clear_destination_folder)
 
     def start(self):
         files = self.list.getAllFiles()
@@ -41,6 +43,21 @@ class ImageConverterClass(QMainWindow, ui.Ui_imageConverter):
         if filename:
             self.imagemagick_lb.setText(filename)
         #TODO: save to settings
+
+
+    def select_destination_folder(self):
+        dialog = QFileDialog()
+        chosen_folder = self.out_le.text()
+        if chosen_folder:
+            dialog.setDirectory(chosen_folder)
+        foldername = dialog.getExistingDirectory(caption="Select destination folder")
+        if foldername:
+            self.out_le.setText(foldername)
+        #TODO: save to settings
+
+
+    def clear_destination_folder(self):
+        self.out_le.setText('')
 
 if __name__ == '__main__':
     app = QApplication([])
