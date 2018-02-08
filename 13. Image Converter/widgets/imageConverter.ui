@@ -87,8 +87,17 @@
            <property name="toolTip">
             <string>Select a folder with images to be converted</string>
            </property>
+           <property name="styleSheet">
+            <string notr="true">Text-align:left</string>
+           </property>
            <property name="text">
             <string>Add Folder</string>
+           </property>
+           <property name="iconSize">
+            <size>
+             <width>32</width>
+             <height>32</height>
+            </size>
            </property>
           </widget>
          </item>
@@ -97,8 +106,17 @@
            <property name="toolTip">
             <string>Select images to be converted</string>
            </property>
+           <property name="styleSheet">
+            <string notr="true">Text-align:left</string>
+           </property>
            <property name="text">
             <string>Add Image</string>
+           </property>
+           <property name="iconSize">
+            <size>
+             <width>32</width>
+             <height>32</height>
+            </size>
            </property>
           </widget>
          </item>
@@ -107,20 +125,54 @@
            <property name="toolTip">
             <string>Exclude folders and images from convertation</string>
            </property>
+           <property name="styleSheet">
+            <string notr="true">Text-align:left</string>
+           </property>
            <property name="text">
             <string>Remove</string>
+           </property>
+           <property name="iconSize">
+            <size>
+             <width>32</width>
+             <height>32</height>
+            </size>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="QToolButton" name="showPaths_btn">
+          <widget class="QPushButton" name="showPaths_btn">
            <property name="toolTip">
             <string>Show/hide full paths</string>
            </property>
+           <property name="styleSheet">
+            <string notr="true">Text-align:left</string>
+           </property>
            <property name="text">
-            <string>...</string>
+            <string>Show paths</string>
+           </property>
+           <property name="iconSize">
+            <size>
+             <width>32</width>
+             <height>32</height>
+            </size>
+           </property>
+           <property name="checkable">
+            <bool>true</bool>
            </property>
           </widget>
+         </item>
+         <item>
+          <spacer name="verticalSpacer">
+           <property name="orientation">
+            <enum>Qt::Vertical</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>20</width>
+             <height>40</height>
+            </size>
+           </property>
+          </spacer>
          </item>
         </layout>
        </item>
@@ -243,17 +295,54 @@
      <layout class="QHBoxLayout" name="horizontalLayout_1">
       <item>
        <widget class="QPushButton" name="start_btn">
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>32</height>
+         </size>
+        </property>
         <property name="text">
          <string>Start</string>
+        </property>
+        <property name="iconSize">
+         <size>
+          <width>32</width>
+          <height>32</height>
+         </size>
         </property>
        </widget>
       </item>
       <item>
        <widget class="QPushButton" name="stop_btn">
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>32</height>
+         </size>
+        </property>
         <property name="text">
          <string>Stop</string>
         </property>
+        <property name="iconSize">
+         <size>
+          <width>32</width>
+          <height>32</height>
+         </size>
+        </property>
        </widget>
+      </item>
+      <item>
+       <spacer name="horizontalSpacer">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
       </item>
      </layout>
     </item>
