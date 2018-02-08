@@ -18,6 +18,11 @@ class ImageConverterClass(QMainWindow, ui.Ui_imageConverter):
 
         # icons
         self.setWindowIcon(QIcon(':/ico32/appicon.png'))
+        self.addFolder_btn.setIcon(QIcon(':/ico32/addfolder.png'))
+        self.addImage_btn.setIcon(QIcon(':/ico32/addimage.png'))
+        self.remove_btn.setIcon(QIcon(':/ico32/remove.png'))
+        self.showPaths_btn.setIcon(QIcon(':/ico32/showhidepaths.png'))
+        self.start_btn.setIcon(QIcon(':/ico32/start.png'))
 
         # connects
         self.start_btn.clicked.connect(self.start)
