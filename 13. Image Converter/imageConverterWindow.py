@@ -25,6 +25,28 @@ class ImageConverterClass(QMainWindow, ui.Ui_imageConverter):
         self.browseOut_btn.clicked.connect(self.select_destination_folder)
         self.clearOut_btn.clicked.connect(self.clear_destination_folder)
 
+        # start
+        self.initialize()
+
+    def initialize(self):
+        defaults = settings.SettingsClass().load()
+        imageMagickPath = defaults.get('ImageMagickPath')
+        if imageMagickPath:
+            self.imagemagick_lb.setText(imageMagickPath)
+        includeSubfoldersFlag = defaults.get('IncludeSubfoldersFlag')
+        if includeSubfoldersFlag:
+            self.subfolders_chb.setChecked(True)
+        else:
+            self.subfolders_chb.setChecked(False)
+        destinationFolder = defaults.get('DestinationFolder')
+        if destinationFolder:
+            self.out_le.setText(destinationFolder)
+        nameCollisionResolutionPolicy = defaults.get('NameCollisionResolutionPolicy')
+        if nameCollisionResolutionPolicy == 'Skip':
+            self.skip_rbtn.setChecked(True)
+        else:
+            self.replace_rbtn.setChecked(True)
+
     def start(self):
         files = self.list.getAllFiles()
         if files:
