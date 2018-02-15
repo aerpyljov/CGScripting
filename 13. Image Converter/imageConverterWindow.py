@@ -3,6 +3,7 @@
 
 from PySide.QtGui import *
 from widgets import imageConverter_UI as ui, filesWidget
+import os
 import converter, settings
 from icons import resources
 
@@ -94,6 +95,10 @@ class ImageConverterClass(QMainWindow, ui.Ui_imageConverter):
 
     def select_exe(self):
         dialog = QFileDialog()
+        selected_exe = self.imagemagick_lb.text()
+        if selected_exe:
+            folder = os.path.dirname(selected_exe)
+            dialog.setDirectory(folder)
         filename, used_filter = dialog.getOpenFileName(caption="Select magick.exe file",
                                 filter="magick.exe", option=dialog.DontUseNativeDialog)
         if filename:
@@ -113,6 +118,15 @@ class ImageConverterClass(QMainWindow, ui.Ui_imageConverter):
     def clear_destination_folder(self):
         self.out_le.setText('')
         self.save_settings('DestinationFolder', None)
+
+    def add_folder(self):
+        pass
+
+    def add_image(self):
+        pass
+
+    def remove(self):
+        pass
 
 
 if __name__ == '__main__':
