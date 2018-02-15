@@ -76,7 +76,6 @@ class ImageConverterClass(QMainWindow, ui.Ui_imageConverter):
         if destinationFormat in supportedFormats:
             index = self.formatOut_cbox.findText(destinationFormat)
             self.formatOut_cbox.setCurrentIndex(index)
-        print(self.formatOut_cbox.currentText())
 
     def save_settings(self, key, value):
         data = settings.SettingsClass().load()
@@ -93,7 +92,6 @@ class ImageConverterClass(QMainWindow, ui.Ui_imageConverter):
                 self.progressBar.setValue(self.progressBar.value() + inc)
         self.progressBar.setValue(0)
 
-
     def select_exe(self):
         dialog = QFileDialog()
         filename, used_filter = dialog.getOpenFileName(caption="Select magick.exe file",
@@ -101,7 +99,6 @@ class ImageConverterClass(QMainWindow, ui.Ui_imageConverter):
         if filename:
             self.imagemagick_lb.setText(filename)
             self.save_settings('ImageMagickPath', filename)
-
 
     def select_destination_folder(self):
         dialog = QFileDialog()
@@ -113,10 +110,10 @@ class ImageConverterClass(QMainWindow, ui.Ui_imageConverter):
             self.out_le.setText(foldername)
             self.save_settings('DestinationFolder', foldername)
 
-
     def clear_destination_folder(self):
         self.out_le.setText('')
         self.save_settings('DestinationFolder', None)
+
 
 if __name__ == '__main__':
     app = QApplication([])
