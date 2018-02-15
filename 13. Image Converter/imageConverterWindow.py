@@ -30,6 +30,16 @@ class ImageConverterClass(QMainWindow, ui.Ui_imageConverter):
         self.browseOut_btn.clicked.connect(self.select_destination_folder)
         self.clearOut_btn.clicked.connect(self.clear_destination_folder)
 
+        # connects for saving settings
+        self.subfolders_chb.stateChanged.connect(lambda: self.save_settings(
+                                                     'IncludeSubfoldersFlag',
+                                                     self.subfolders_chb.isChecked()))
+        self.skip_rbtn.toggled.connect(lambda: self.save_settings(
+                                        'NameCollisionResolutionPolicy', 'Skip')
+                                        if self.skip_rbtn.isChecked() else
+                                        self.save_settings(
+                                        'NameCollisionResolutionPolicy', 'Replace'))
+
         # start
         self.initialize()
 
