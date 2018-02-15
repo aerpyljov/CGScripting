@@ -52,6 +52,11 @@ class ImageConverterClass(QMainWindow, ui.Ui_imageConverter):
         else:
             self.replace_rbtn.setChecked(True)
 
+    def save_settings(self, key, value):
+        data = settings.SettingsClass().load()
+        data[key] = value
+        settings.SettingsClass().save(data)
+
     def start(self):
         files = self.list.getAllFiles()
         if files:
@@ -69,7 +74,7 @@ class ImageConverterClass(QMainWindow, ui.Ui_imageConverter):
                                 filter="magick.exe", option=dialog.DontUseNativeDialog)
         if filename:
             self.imagemagick_lb.setText(filename)
-        #TODO: save to settings
+            self.save_settings('ImageMagickPath', filename)
 
 
     def select_destination_folder(self):
@@ -80,12 +85,12 @@ class ImageConverterClass(QMainWindow, ui.Ui_imageConverter):
         foldername = dialog.getExistingDirectory(caption="Select destination folder")
         if foldername:
             self.out_le.setText(foldername)
-        #TODO: save to settings
+            self.save_settings('DestinationFolder', foldername)
 
 
     def clear_destination_folder(self):
         self.out_le.setText('')
-        # TODO: save to settings
+        self.save_settings('DestinationFolder', None)
 
 if __name__ == '__main__':
     app = QApplication([])
