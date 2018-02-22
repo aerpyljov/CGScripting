@@ -33,6 +33,7 @@ class ImageConverterClass(QMainWindow, ui.Ui_imageConverter):
         self.addFolder_btn.clicked.connect(self.add_folder)
         self.addImage_btn.clicked.connect(self.add_image)
         self.remove_btn.clicked.connect(self.remove)
+        self.showPaths_btn.clicked.connect(self.show_paths)
 
         # connects for saving settings
         self.subfolders_chb.stateChanged.connect(lambda: self.save_settings(
@@ -137,6 +138,16 @@ class ImageConverterClass(QMainWindow, ui.Ui_imageConverter):
 
     def remove(self):
         self.list.deleteSelected()
+
+    def show_paths(self):
+        for i in range(self.list.count()):
+            item = self.list.item(i)
+            fullpath = item.data(32)  # QtCore.Qt.ItemDataRole = Qt.UserRole
+            name = os.path.basename(fullpath)
+            if self.showPaths_btn.isChecked():
+                item.setText(fullpath)
+            else:
+                item.setText(name)
 
 
 if __name__ == '__main__':
