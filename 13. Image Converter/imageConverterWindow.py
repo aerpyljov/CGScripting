@@ -32,6 +32,7 @@ class ImageConverterClass(QMainWindow, ui.Ui_imageConverter):
         self.clearOut_btn.clicked.connect(self.clear_destination_folder)
         self.addFolder_btn.clicked.connect(self.add_folder)
         self.addImage_btn.clicked.connect(self.add_image)
+        self.remove_btn.clicked.connect(self.remove)
 
         # connects for saving settings
         self.subfolders_chb.stateChanged.connect(lambda: self.save_settings(
@@ -135,7 +136,7 @@ class ImageConverterClass(QMainWindow, ui.Ui_imageConverter):
                 self.list.addFile(image)
 
     def remove(self):
-        pass
+        self.list.deleteSelected()
 
 
 if __name__ == '__main__':
