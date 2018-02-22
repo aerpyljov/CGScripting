@@ -50,6 +50,10 @@ class listWidgetClass(QListWidget):
             item.setText(os.path.basename(path))
             item.setData(Qt.UserRole, path)
             item.setToolTip(path)
+            if os.path.isdir(path):
+                item.setIcon(QIcon(':/ico16/16x16/folder.png'))
+            else:
+                item.setIcon(QIcon(':/ico16/16x16/image.png'))
             self.files.append(path)
 
     def deleteSelected(self):
