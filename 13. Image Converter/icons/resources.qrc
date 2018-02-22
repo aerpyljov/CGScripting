@@ -7,4 +7,8 @@
     <file>start.png</file>
     <file>appicon.png</file>
   </qresource>
+  <qresource prefix="ico16">
+    <file>16x16/folder.png</file>
+    <file>16x16/image.png</file>
+  </qresource>
 </RCC>

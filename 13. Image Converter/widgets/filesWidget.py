@@ -1,5 +1,6 @@
 from PySide.QtCore import *
 from PySide.QtGui import *
+from icons import resources
 
 import os
 
@@ -48,6 +49,7 @@ class listWidgetClass(QListWidget):
             item = QListWidgetItem(self)
             item.setText(os.path.basename(path))
             item.setData(Qt.UserRole, path)
+            item.setToolTip(path)
             self.files.append(path)
 
     def deleteSelected(self):
