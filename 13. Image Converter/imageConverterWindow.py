@@ -30,6 +30,8 @@ class ImageConverterClass(QMainWindow, ui.Ui_imageConverter):
         self.browseImagemagick_btn.clicked.connect(self.select_exe)
         self.browseOut_btn.clicked.connect(self.select_destination_folder)
         self.clearOut_btn.clicked.connect(self.clear_destination_folder)
+        self.addFolder_btn.clicked.connect(self.add_folder)
+        self.addImage_btn.clicked.connect(self.add_image)
 
         # connects for saving settings
         self.subfolders_chb.stateChanged.connect(lambda: self.save_settings(
@@ -120,10 +122,17 @@ class ImageConverterClass(QMainWindow, ui.Ui_imageConverter):
         self.save_settings('DestinationFolder', None)
 
     def add_folder(self):
-        pass
+        dialog = QFileDialog()
+        foldername = dialog.getExistingDirectory(caption="Select folder with images")
+        if foldername:
+            self.list.addFile(foldername)
 
     def add_image(self):
-        pass
+        dialog = QFileDialog()
+        imagenames, used_filter = dialog.getOpenFileNames(caption="Select images")
+        if imagenames:
+            for image in imagenames:
+                self.list.addFile(image)
 
     def remove(self):
         pass
