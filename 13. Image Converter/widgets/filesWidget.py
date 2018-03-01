@@ -65,6 +65,18 @@ class listWidgetClass(QListWidget):
     def getAllFiles(self):
         return self.files
 
+    def getImagesFromFolders(self, include_subfolders):
+        images = []
+        for f in self.files:
+            if os.path.isfile(f):
+                images.append(f)
+            if os.path.isdir(f):
+                for (dirpath, dirnames, filenames) in os.walk(f):
+                    images.extend(filenames) # TODO: full filepaths instead of filenames
+                    if not include_subfolders:
+                        break
+        return images
+
     def keyPressEvent(self, event):
         if event.key() == Qt.Key_Delete:
             self.deleteSelected()

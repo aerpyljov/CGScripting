@@ -89,7 +89,8 @@ class ImageConverterClass(QMainWindow, ui.Ui_imageConverter):
         settings.SettingsClass().save(data)
 
     def start(self):
-        files = self.list.getAllFiles()
+        include_subfolders = self.subfolders_chb.isChecked()
+        files = self.list.getImagesFromFolders(include_subfolders)
         if files:
             trg_ext = self.formatOut_cbox.currentText().lower()
             out = self.out_le.text()

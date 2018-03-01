@@ -17,4 +17,7 @@ def convert(src, trg_ext, trg=None, overwrite=False):
     if not overwrite and os.path.exists(trg):
         pass
     else:
-        subprocess.Popen([imageMagick, src, trg])
+        try:
+            subprocess.Popen([imageMagick, src, trg])
+        except Exception:
+            pass
