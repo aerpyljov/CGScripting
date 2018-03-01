@@ -49,6 +49,7 @@ class ImageConverterClass(QMainWindow, ui.Ui_imageConverter):
                                         self.formatOut_cbox.currentText()))
 
         # start
+        self.stop_btn.hide()  # Cannot work while conversion is done in the UI thread
         self.initialize()
 
     def initialize(self):
