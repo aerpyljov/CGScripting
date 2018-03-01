@@ -93,9 +93,10 @@ class ImageConverterClass(QMainWindow, ui.Ui_imageConverter):
         if files:
             trg_ext = self.formatOut_cbox.currentText().lower()
             out = self.out_le.text()
+            overwrite = True if self.replace_rbtn.isChecked() else False
             inc = 100 / len(files)
             for f in files:
-                converter.convert(f, trg_ext, out)
+                converter.convert(f, trg_ext, out, overwrite)
                 self.progressBar.setValue(self.progressBar.value() + inc)
         self.progressBar.setValue(0)
 
