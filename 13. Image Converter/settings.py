@@ -15,9 +15,7 @@ class SettingsClass(object):
 
     @staticmethod
     def make_default(path):
-        app_folder = os.path.dirname(os.path.abspath(__file__))
         def_data = dict(
-            ImageMagickPath=os.path.join(app_folder, 'ImageMagick', 'magick.exe'),
             IncludeSubfoldersFlag=True,
             DestinationFolder=None,
             DestinationFormat='JPEG',

@@ -27,7 +27,6 @@ class ImageConverterClass(QMainWindow, ui.Ui_imageConverter):
 
         # connects
         self.start_btn.clicked.connect(self.start)
-        self.browseImagemagick_btn.clicked.connect(self.select_exe)
         self.browseOut_btn.clicked.connect(self.select_destination_folder)
         self.clearOut_btn.clicked.connect(self.clear_destination_folder)
         self.addFolder_btn.clicked.connect(self.add_folder)
@@ -50,13 +49,15 @@ class ImageConverterClass(QMainWindow, ui.Ui_imageConverter):
 
         # start
         self.stop_btn.hide()  # Cannot work while conversion is done in the UI thread
+        self.browseImagemagick_btn.hide() # Changed the app - magick.exe has fixed location
         self.initialize()
 
     def initialize(self):
         defaults = settings.SettingsClass().load()
-        imageMagickPath = defaults.get('ImageMagickPath')
-        if imageMagickPath:
-            self.imagemagick_lb.setText(imageMagickPath)
+        #
+        app_folder = os.path.dirname(os.path.abspath(__file__))
+        imageMagickPath = os.path.join(app_folder, 'ImageMagick', 'magick.exe')
+        self.imagemagick_lb.setText(imageMagickPath)
         #
         includeSubfoldersFlag = defaults.get('IncludeSubfoldersFlag')
         if includeSubfoldersFlag:
@@ -100,18 +101,6 @@ class ImageConverterClass(QMainWindow, ui.Ui_imageConverter):
                 converter.convert(f, trg_ext, out, overwrite)
                 self.progressBar.setValue(self.progressBar.value() + inc)
         self.progressBar.setValue(0)
-
-    def select_exe(self):
-        dialog = QFileDialog()
-        selected_exe = self.imagemagick_lb.text()
-        if selected_exe:
-            folder = os.path.dirname(selected_exe)
-            dialog.setDirectory(folder)
-        filename, used_filter = dialog.getOpenFileName(caption="Select magick.exe file",
-                                filter="magick.exe", option=dialog.DontUseNativeDialog)
-        if filename:
-            self.imagemagick_lb.setText(filename)
-            self.save_settings('ImageMagickPath', filename)
 
     def select_destination_folder(self):
         dialog = QFileDialog()
