@@ -1,7 +1,7 @@
-import os, subprocess
+import os, subprocess, locale
 
-imageMagick = r"C:\Users\Alexey\Documents\GitHub\CGScripting\13. Image Converter\ImageMagick\magick.exe"
-
+IMAGEMAGICK = r"C:\Users\Alexey\Documents\GitHub\CGScripting\13. Image Converter\ImageMagick\magick.exe"
+ENCODING = locale.getpreferredencoding()
 
 def convert(src, trg_ext, trg=None, overwrite=False):
     if trg:
@@ -18,6 +18,10 @@ def convert(src, trg_ext, trg=None, overwrite=False):
         pass
     else:
         try:
-            subprocess.Popen([imageMagick, src, trg])
-        except Exception:
-            pass
+            src_enc = src.encode(ENCODING)
+            trg_enc = trg.encode(ENCODING)
+            subprocess.Popen([IMAGEMAGICK, src_enc, trg_enc])
+        except Exception as E:
+            print('Src = ' + src)
+            print('Trg = ' + trg)
+            print('Exception = ' + str(E) + '\n')

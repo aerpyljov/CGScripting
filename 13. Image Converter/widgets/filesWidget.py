@@ -72,7 +72,8 @@ class listWidgetClass(QListWidget):
                 images.append(f)
             if os.path.isdir(f):
                 for (dirpath, dirnames, filenames) in os.walk(f):
-                    images.extend(filenames) # TODO: full filepaths instead of filenames
+                    files = [os.path.join(dirpath, filename) for filename in filenames]
+                    images.extend(files)
                     if not include_subfolders:
                         break
         return images
