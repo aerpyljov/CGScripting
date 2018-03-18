@@ -1,9 +1,9 @@
 import os, subprocess, locale
 
-IMAGEMAGICK = r"C:\Users\Alexey\Documents\GitHub\CGScripting\13. Image Converter\ImageMagick\magick.exe"
 ENCODING = locale.getpreferredencoding()
 
-def convert(src, trg_ext, trg=None, overwrite=False):
+
+def convert(imageMagickPath, src, trg_ext, trg=None, overwrite=False):
     if trg:
         if not os.path.exists(trg):
             os.makedirs(trg)
@@ -20,7 +20,8 @@ def convert(src, trg_ext, trg=None, overwrite=False):
         try:
             src_enc = src.encode(ENCODING)
             trg_enc = trg.encode(ENCODING)
-            subprocess.Popen([IMAGEMAGICK, src_enc, trg_enc])
+            exe_enc = imageMagickPath.encode(ENCODING)
+            subprocess.Popen([exe_enc, src_enc, trg_enc])
         except Exception as E:
             print('Src = ' + src)
             print('Trg = ' + trg)

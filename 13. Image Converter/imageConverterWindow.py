@@ -93,12 +93,13 @@ class ImageConverterClass(QMainWindow, ui.Ui_imageConverter):
         include_subfolders = self.subfolders_chb.isChecked()
         files = self.list.getImagesFromFolders(include_subfolders)
         if files:
+            imageMagickPath = self.imagemagick_lb.text()
             trg_ext = self.formatOut_cbox.currentText().lower()
             out = self.out_le.text()
             overwrite = True if self.replace_rbtn.isChecked() else False
             inc = 100 / len(files)
             for f in files:
-                converter.convert(f, trg_ext, out, overwrite)
+                converter.convert(imageMagickPath, f, trg_ext, out, overwrite)
                 self.progressBar.setValue(self.progressBar.value() + inc)
         self.progressBar.setValue(0)
 
