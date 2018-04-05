@@ -1,6 +1,7 @@
 from PySide.QtCore import *
 from PySide.QtGui import *
 from math import sin
+import sineWidget_UI as ui
 
 
 class sineWidget(QWidget):
@@ -33,8 +34,16 @@ class sineWidget(QWidget):
         painter.end()
 
 
+class SineWindowClass(QMainWindow, ui.Ui_SineWidgetWindow):
+    def __init__(self):
+        super(SineWindowClass, self).__init__()
+        self.setupUi(self)
+        self.sine = sineWidget()
+        self.sine_ly.addWidget(self.sine)
+
+
 if __name__ == '__main__':
     app = QApplication([])
-    w = sineWidget()
+    w = SineWindowClass()
     w.show()
     app.exec_()
