@@ -24,8 +24,11 @@ class sineWidget(QWidget):
         # paint
         painter.fillRect(rec, Qt.black)
         painter.setPen(QPen(QBrush(Qt.gray), 0.5))
+        painter.setFont(QFont('Arial', 8))
         for i in range(0, rec.width(), self.grid):
             painter.drawLine(i, 0, i, rec.height())
+            if self.grid > 30:
+                painter.drawText(i+3, 12, str(i))
         for i in range(0, rec.height(), self.grid):
             painter.drawLine(0, i, rec.width(), i)
         painter.setRenderHint(QPainter.Antialiasing)
@@ -66,6 +69,7 @@ class SineWindowClass(QMainWindow, ui.Ui_SineWidgetWindow):
         self.heigth_hs.setValue(20)
         self.length_hs.setValue(20)
         self.width_hs.setValue(1)
+        self.grid_hs.setValue(40)
         # connects
         self.heigth_hs.valueChanged.connect(self.sine.setHeight)
         self.length_hs.valueChanged.connect(self.sine.setLen)
