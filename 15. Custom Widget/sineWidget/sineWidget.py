@@ -5,15 +5,15 @@ import sineWidget_UI as ui
 
 
 class sineWidget(QWidget):
-    def __init__(self):
+    def __init__(self, wave_height, wave_len, pen_width, grid):
         super(sineWidget, self).__init__()
         self.resize(500, 300)
         self.setWindowTitle('Sine')
 
-        self.wave_height = 30
-        self.wave_len = 20
-        self.pen_width = 3
-        self.grid = 30
+        self.wave_height = wave_height
+        self.wave_len = wave_len
+        self.pen_width = pen_width
+        self.grid = grid
 
     def paintEvent(self, event):
         rec = event.rect()  # When displayed area changed
@@ -31,6 +31,8 @@ class sineWidget(QWidget):
                 painter.drawText(i+3, 12, str(i))
         for i in range(0, rec.height(), self.grid):
             painter.drawLine(0, i, rec.width(), i)
+        painter.setPen(QPen(QBrush(Qt.gray), 3))
+        painter.drawLine(0, rec.height()/2, rec.width(), rec.height()/2)
         painter.setRenderHint(QPainter.Antialiasing)
         painter.setPen(QPen(QBrush(Qt.yellow), self.pen_width))
         prev_x = 0
@@ -64,12 +66,13 @@ class SineWindowClass(QMainWindow, ui.Ui_SineWidgetWindow):
     def __init__(self):
         super(SineWindowClass, self).__init__()
         self.setupUi(self)
-        self.sine = sineWidget()
-        self.sine_ly.addWidget(self.sine)
-        self.heigth_hs.setValue(20)
-        self.length_hs.setValue(20)
+        self.heigth_hs.setValue(100)
+        self.length_hs.setValue(5)
         self.width_hs.setValue(1)
-        self.grid_hs.setValue(40)
+        self.grid_hs.setValue(50)
+        self.sine = sineWidget(self.heigth_hs.value(), self.length_hs.value(),
+                               self.width_hs.value(), self.grid_hs.value())
+        self.sine_ly.addWidget(self.sine)
         #
         self.heigth_num_lb.setText(str(self.heigth_hs.value()))
         self.length_num_lb.setText(str(self.length_hs.value()))
