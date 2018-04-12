@@ -27,7 +27,7 @@ class sineWidget(QWidget):
         painter.setFont(QFont('Arial', 8))
         for i in range(0, rec.width(), self.grid):
             painter.drawLine(i, 0, i, rec.height())
-            if self.grid > 30:
+            if self.grid >= 30:
                 painter.drawText(i+3, 12, str(i))
         for i in range(0, rec.height(), self.grid):
             painter.drawLine(0, i, rec.width(), i)
@@ -70,12 +70,21 @@ class SineWindowClass(QMainWindow, ui.Ui_SineWidgetWindow):
         self.length_hs.setValue(20)
         self.width_hs.setValue(1)
         self.grid_hs.setValue(40)
+        #
+        self.heigth_num_lb.setText(str(self.heigth_hs.value()))
+        self.length_num_lb.setText(str(self.length_hs.value()))
+        self.width_num_lb.setText(str(self.width_hs.value()))
+        self.grid_num_lb.setText(str(self.grid_hs.value()))
         # connects
         self.heigth_hs.valueChanged.connect(self.sine.setHeight)
         self.length_hs.valueChanged.connect(self.sine.setLen)
         self.width_hs.valueChanged.connect(self.sine.setWidth)
         self.grid_hs.valueChanged.connect(self.sine.setGrid)
-
+        #
+        self.heigth_hs.valueChanged.connect(lambda x: self.heigth_num_lb.setText(str(x)))
+        self.length_hs.valueChanged.connect(lambda x: self.length_num_lb.setText(str(x)))
+        self.width_hs.valueChanged.connect(lambda x: self.width_num_lb.setText(str(x)))
+        self.grid_hs.valueChanged.connect(lambda x: self.grid_num_lb.setText(str(x)))
 
 if __name__ == '__main__':
     app = QApplication([])
