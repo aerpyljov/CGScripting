@@ -23,6 +23,7 @@ class sineWidget(QWidget):
         painter.begin(self)
         # paint
         painter.fillRect(rec, Qt.black)
+        # coordinate network
         painter.setPen(QPen(QBrush(Qt.gray), 0.5))
         painter.setFont(QFont('Arial', 8))
         for i in range(0, rec.width(), self.grid):
@@ -31,8 +32,10 @@ class sineWidget(QWidget):
                 painter.drawText(i+3, 12, str(i))
         for i in range(0, rec.height(), self.grid):
             painter.drawLine(0, i, rec.width(), i)
+        # coordinate axis
         painter.setPen(QPen(QBrush(Qt.gray), 3))
         painter.drawLine(0, rec.height()/2, rec.width(), rec.height()/2)
+        # sine graph
         painter.setRenderHint(QPainter.Antialiasing)
         painter.setPen(QPen(QBrush(Qt.yellow), self.pen_width))
         prev_x = 0
