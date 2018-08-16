@@ -11,6 +11,8 @@ class pickerClass(QWidget):
         self.sz = 500
         self.setFixedSize(QSize(self.sz, self.sz))
         self.img = self.getRamp()
+        self.markerSize = 3
+        self.markerPos = None
 
     def paintEvent(self, event):
         painter = QPainter()
@@ -18,6 +20,9 @@ class pickerClass(QWidget):
         painter.setRenderHint(QPainter.Antialiasing)
         rec = event.rect()
         painter.drawImage(0, 0, self.img)
+        if self.markerPos:
+            painter.setPen(QPen(QBrush(Qt.black), 3))
+            painter.drawEllipse(self.markerPos, self.markerSize, self.markerSize)
         painter.end()
 
     def getRamp(self):
@@ -34,7 +39,15 @@ class pickerClass(QWidget):
 
     def mousePressEvent(self, event):
         super(pickerClass, self).mousePressEvent(event)
+        self.markerPos = event.pos()
         self.getColor(event.pos())
+        self.update()
+
+    def mouseMoveEvent(self, event):
+        super(pickerClass, self).mouseMoveEvent(event)
+        self.markerPos = event.pos()
+        self.getColor(event.pos())
+        self.update()
 
     def getColor(self, pos):
         h = pos.x() / float(self.sz)
