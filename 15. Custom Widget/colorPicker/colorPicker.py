@@ -11,8 +11,12 @@ class pickerClass(QWidget):
         self.sz = 500
         self.setFixedSize(QSize(self.sz, self.sz))
         self.img = self.getRamp()
-        self.markerSize = 3
+        self.markerSize = 6
         self.markerPos = None
+        self.preview = None
+        self.setAttribute(Qt.WA_Hover)
+        self.installEventFilter(self)
+        self.setCursor(Qt.BlankCursor)
 
     def paintEvent(self, event):
         painter = QPainter()
@@ -23,6 +27,9 @@ class pickerClass(QWidget):
         if self.markerPos:
             painter.setPen(QPen(QBrush(Qt.black), 3))
             painter.drawEllipse(self.markerPos, self.markerSize, self.markerSize)
+        if self.preview:
+            painter.setPen(QPen(QBrush(QColor(0, 0, 0, 50)), 3))
+            painter.drawEllipse(self.preview, self.markerSize, self.markerSize)
         painter.end()
 
     def getRamp(self):
@@ -55,6 +62,12 @@ class pickerClass(QWidget):
         c = QColor()
         c.setHsvF(h, s, 1)
         self.colorChangedSignal.emit(c)
+
+    def eventFilter(self, obj, event):  # There is no mouseHoverEvent in QWidget
+        if event.type() == QEvent.HoverMove:
+            self.preview = event.pos()
+            self.update()
+
 
 class colorPickerWindow(QWidget):
     def __init__(self):
