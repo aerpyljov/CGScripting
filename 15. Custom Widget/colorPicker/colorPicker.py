@@ -3,6 +3,9 @@ from PySide.QtGui import *
 
 
 class pickerClass(QWidget):
+
+    colorChangedSignal = Signal(QColor)
+
     def __init__(self):
         super(pickerClass, self).__init__()
         self.sz = 500
@@ -38,13 +41,29 @@ class pickerClass(QWidget):
         s = pos.y() / float(self.sz)
         c = QColor()
         c.setHsvF(h, s, 1)
-        print(c)
-        return c
+        self.colorChangedSignal.emit(c)
+
+class colorPickerWindow(QWidget):
+    def __init__(self):
+        super(colorPickerWindow, self).__init__()
+        self.ly = QVBoxLayout(self)
+        self.color = QLabel()
+        self.color.setAutoFillBackground(True)
+        self.color.setMinimumHeight(40)
+        self.ly.addWidget(self.color)
+        self.picker = pickerClass()
+        self.ly.addWidget(self.picker)
+        self.picker.colorChangedSignal.connect(self.updateColor)
+
+    def updateColor(self, color):
+        palette = self.color.palette()
+        palette.setColor(self.color.backgroundRole(), color)
+        self.color.setPalette(palette)
 
 
 
 if __name__ == '__main__':
     app = QApplication([])
-    w = pickerClass()
+    w = colorPickerWindow()
     w.show()
     app.exec_()
