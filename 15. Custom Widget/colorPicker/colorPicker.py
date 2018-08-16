@@ -5,24 +5,30 @@ from PySide.QtGui import *
 class pickerClass(QWidget):
     def __init__(self):
         super(pickerClass, self).__init__()
-        self.resize(300, 300)
+        self.sz = 500
+        self.setFixedSize(QSize(self.sz, self.sz))
+        self.img = self.getRamp()
 
     def paintEvent(self, event):
         painter = QPainter()
         painter.begin(self)
         painter.setRenderHint(QPainter.Antialiasing)
         rec = event.rect()
+        painter.drawImage(0, 0, self.img)
+        painter.end()
+
+    def getRamp(self):
+        img = QImage(self.sz, self.sz, QImage.Format_RGB32)
         color = QColor()
-        for x in range(rec.width()):
-            h = x / float(rec.width())
-            for y in range(rec.height()):
-                s = y / float(rec.height())
+        for x in range(self.sz):
+            h = x / float(self.sz)
+            for y in range(self.sz):
+                s = y / float(self.sz)
                 v = 1
                 color.setHsvF(h, s, v)
-                painter.setPen(QPen(QBrush(color), 1))
-                painter.drawPoint(x, y)
+                img.setPixel(x, y, color.rgb())
+        return img
 
-        painter.end()
 
 
 if __name__ == '__main__':
