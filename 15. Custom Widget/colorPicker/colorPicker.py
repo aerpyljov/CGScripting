@@ -29,6 +29,18 @@ class pickerClass(QWidget):
                 img.setPixel(x, y, color.rgb())
         return img
 
+    def mousePressEvent(self, event):
+        super(pickerClass, self).mousePressEvent(event)
+        self.getColor(event.pos())
+
+    def getColor(self, pos):
+        h = pos.x() / float(self.sz)
+        s = pos.y() / float(self.sz)
+        c = QColor()
+        c.setHsvF(h, s, 1)
+        print(c)
+        return c
+
 
 
 if __name__ == '__main__':
