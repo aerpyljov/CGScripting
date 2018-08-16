@@ -67,6 +67,8 @@ class pickerClass(QWidget):
         if event.type() == QEvent.HoverMove:
             self.preview = event.pos()
             self.update()
+            return True
+        return False
 
 
 class colorPickerWindow(QWidget):
