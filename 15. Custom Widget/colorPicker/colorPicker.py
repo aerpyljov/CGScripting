@@ -68,6 +68,10 @@ class pickerClass(QWidget):
             self.preview = event.pos()
             self.update()
             return True
+        if event.type() == QEvent.HoverLeave:
+            self.preview = None
+            self.update()
+            return True
         return False
 
 
