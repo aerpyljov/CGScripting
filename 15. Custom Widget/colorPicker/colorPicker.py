@@ -85,12 +85,18 @@ class colorPickerWindow(QWidget):
         self.ly.addWidget(self.color)
         self.picker = pickerClass()
         self.ly.addWidget(self.picker)
+        self.colorCode = QLabel()
+        self.colorCode.setMinimumHeight(40)
+        self.ly.addWidget(self.colorCode)
         self.picker.colorChangedSignal.connect(self.updateColor)
 
     def updateColor(self, color):
         palette = self.color.palette()
         palette.setColor(self.color.backgroundRole(), color)
         self.color.setPalette(palette)
+        rgbCode = color.getRgb()
+        rgbCode = str(rgbCode[:3])
+        self.colorCode.setText('RGB: ' + rgbCode)
 
 
 
